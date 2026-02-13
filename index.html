@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rolosca Agente de Seguros en Cuauhtémoc, Chihuahua. Asesoría personalizada para encontrar la protección que necesitas. Respaldados por Grupo Financiero Inbursa.">
+    <meta name="keywords" content="seguros Cuauhtémoc, agente de seguros Chihuahua, Rolosca, seguro de vida, gastos médicos, seguro de auto, Inbursa">
+    <title>Rolosca Agente de Seguros | Cuauhtémoc, Chihuahua</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cursor personalizado -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5L90 25V75L50 95L10 75V25L50 5Z" stroke="url(#loaderGrad)" stroke-width="2" fill="none"/>
+                    <path class="loader-check" d="M30 50L45 65L70 35" stroke="#C9A962" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="loaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#C9A962"/>
+                            <stop offset="100%" stop-color="#8B7355"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <p class="loader-text">Rolosca</p>
+        </div>
+    </div>
+
+    <!-- Botón flotante WhatsApp -->
+    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20asesoría%20sobre%20seguros." 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Contactar por WhatsApp">
+        <div class="whatsapp-pulse"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+        <span class="whatsapp-tooltip">Escríbenos</span>
+    </a>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="container">
+                <a href="#inicio" class="logo">
+                    <div class="logo-mark">
+                        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25 2L45 14V38L25 50L5 38V14L25 2Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            <path d="M18 25L23 30L33 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">ROLOSCA</span>
+                        <span class="logo-subtitle">Agente de Seguros</span>
+                    </div>
+                </a>
+
+                <button class="nav-toggle" id="navToggle" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="#soluciones" class="nav-link">Soluciones</a></li>
+                    <li><a href="#proceso" class="nav-link">Proceso</a></li>
+                    <li><a href="#preguntas" class="nav-link">Preguntas</a></li>
+                    <li><a href="#contacto" class="nav-link nav-cta">Contactar</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="hero-grid"></div>
+            <div class="hero-particles" id="particles"></div>
+        </div>
+
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge" data-aos="fade-up">
+                    <span class="badge-dot"></span>
+                    <span>Asesoría sin costo</span>
+                    <span class="badge-line"></span>
+                    <span>Cuauhtémoc, Chihuahua</span>
+                </div>
+
+                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+                    <span class="title-line">La protección adecuada</span>
+                    <span class="title-line title-accent">para cada etapa de tu vida</span>
+                </h1>
+
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                    Analizamos tu situación y te presentamos opciones claras. 
+                    Sin tecnicismos, sin presión. Solo soluciones que se adaptan 
+                    a lo que realmente necesitas.
+                </p>
+
+                <div class="hero-cta" data-aos="fade-up" data-aos-delay="300">
+                    <a href="https://wa.me/526251069507?text=Hola,%20me%20gustaría%20recibir%20asesoría%20personalizada%20sobre%20seguros." 
+                       class="btn btn-primary" target="_blank">
+                        <span>Solicitar Asesoría</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#soluciones" class="btn btn-ghost">
+                        <span>Explorar Opciones</span>
+                    </a>
+                </div>
+
+                <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat">
+                        <span class="stat-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </span>
+                        <span class="stat-label">Cotización en minutos</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </span>
+                        <span class="stat-label">Explicación transparente</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </span>
+                        <span class="stat-label">Pagos flexibles</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
+                <div class="visual-card">
+                    <div class="card-shine"></div>
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="40" cy="40" r="38" stroke="url(#cardGrad1)" stroke-width="1"/>
+                                <circle cx="40" cy="40" r="28" stroke="url(#cardGrad2)" stroke-width="1"/>
+                                <path d="M40 15L55 25V45L40 55L25 45V25L40 15Z" fill="url(#cardGrad3)" opacity="0.3"/>
+                                <path d="M32 40L38 46L50 32" stroke="#C9A962" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#C9A962" stop-opacity="0.5"/>
+                                        <stop offset="100%" stop-color="#8B7355" stop-opacity="0.1"/>
+                                    </linearGradient>
+                                    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#C9A962" stop-opacity="0.3"/>
+                                        <stop offset="100%" stop-color="#C9A962" stop-opacity="0.1"/>
+                                    </linearGradient>
+                                    <linearGradient id="cardGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#C9A962"/>
+                                        <stop offset="100%" stop-color="#8B7355"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <h3>Respaldo Inbursa</h3>
+                        <p>Más de 30 años de solidez financiera y presencia en todo México</p>
+                    </div>
+                </div>
+
+                <div class="visual-float visual-float-1">
+                    <span class="float-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </span>
+                    <span>Familias</span>
+                </div>
+                <div class="visual-float visual-float-2">
+                    <span class="float-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </span>
+                    <span>Salud</span>
+                </div>
+                <div class="visual-float visual-float-3">
+                    <span class="float-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="6" width="22" height="12" rx="2"/>
+                            <circle cx="6" cy="18" r="2"/>
+                            <circle cx="18" cy="18" r="2"/>
+                        </svg>
+                    </span>
+                    <span>Vehículos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <span>Conoce las opciones</span>
+            <div class="scroll-indicator">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Propuesta de Valor -->
+    <section class="value-prop">
+        <div class="container">
+            <div class="value-grid">
+                <div class="value-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3>Orientación clara</h3>
+                    <p>Explicamos cada opción en términos sencillos para que tomes decisiones informadas</p>
+                </div>
+                <div class="value-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Respaldo sólido</h3>
+                    <p>Trabajamos con Grupo Financiero Inbursa, una de las instituciones más estables del país</p>
+                </div>
+                <div class="value-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="value-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Acompañamiento continuo</h3>
+                    <p>No desaparecemos después de la firma. Estamos contigo durante toda la vigencia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soluciones Section -->
+    <section id="soluciones" class="solutions">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Soluciones de Protección</span>
+                <h2 class="section-title">
+                    Encuentra la cobertura 
+                    <span class="text-gold">que se adapta a ti</span>
+                </h2>
+                <p class="section-subtitle">
+                    Cada situación es diferente. Selecciona lo que más te interesa 
+                    y te contactamos para darte información detallada.
+                </p>
+            </div>
+
+            <div class="solutions-grid">
+                <!-- Seguro de Vida -->
+                <div class="solution-card featured" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-badge">Recomendado</div>
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </div>
+                        <h3>Seguro de Vida</h3>
+                    </div>
+                    <p class="card-subtitle">Protección para tu familia</p>
+                    <p class="card-description">
+                        Garantiza estabilidad económica para quienes dependen de ti. 
+                        Incluye opciones de ahorro y beneficios en vida.
+                    </p>
+                    <div class="card-ideal">
+                        <span class="ideal-label">Diseñado para:</span>
+                        <ul>
+                            <li>Padres con hijos dependientes</li>
+                            <li>Personas con créditos hipotecarios</li>
+                            <li>Quienes buscan dejar un patrimonio asegurado</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Seguro%20de%20Vida." 
+                       class="card-cta" target="_blank">
+                        <span>Solicitar información</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Gastos Médicos Mayores -->
+                <div class="solution-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3>Gastos Médicos Mayores</h3>
+                    </div>
+                    <p class="card-subtitle">Atención médica de calidad</p>
+                    <p class="card-description">
+                        Acceso a hospitales y especialistas de primer nivel. 
+                        Cubre hospitalización, cirugías, tratamientos y medicamentos.
+                    </p>
+                    <div class="card-ideal">
+                        <span class="ideal-label">Diseñado para:</span>
+                        <ul>
+                            <li>Quienes no cuentan con seguridad social</li>
+                            <li>Personas que prefieren elegir su médico</li>
+                            <li>Familias que buscan cobertura amplia</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Gastos%20Médicos%20Mayores." 
+                       class="card-cta" target="_blank">
+                        <span>Solicitar información</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Seguro de Auto -->
+                <div class="solution-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="1" y="6" width="22" height="12" rx="2"/>
+                                <circle cx="6" cy="18" r="2"/>
+                                <circle cx="18" cy="18" r="2"/>
+                                <path d="M4 6l3-4h10l3 4"/>
+                            </svg>
+                        </div>
+                        <h3>Seguro de Auto</h3>
+                    </div>
+                    <p class="card-subtitle">Protección vehicular completa</p>
+                    <p class="card-description">
+                        Cobertura integral: colisiones, robo total, daños a terceros. 
+                        Incluye asistencia vial las 24 horas y auto sustituto.
+                    </p>
+                    <div class="card-ideal">
+                        <span class="ideal-label">Diseñado para:</span>
+                        <ul>
+                            <li>Propietarios de vehículos nuevos o seminuevos</li>
+                            <li>Quienes viajan frecuentemente en carretera</li>
+                            <li>Conductores que buscan tranquilidad al volante</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20cotizar%20Seguro%20de%20Auto." 
+                       class="card-cta" target="_blank">
+                        <span>Cotizar ahora</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Seguro de Hogar -->
+                <div class="solution-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                        </div>
+                        <h3>Seguro de Hogar</h3>
+                    </div>
+                    <p class="card-subtitle">Tu patrimonio resguardado</p>
+                    <p class="card-description">
+                        Protege la estructura de tu casa y su contenido. 
+                        Cobertura ante incendio, robo, fenómenos naturales y responsabilidad civil.
+                    </p>
+                    <div class="card-ideal">
+                        <span class="ideal-label">Diseñado para:</span>
+                        <ul>
+                            <li>Propietarios de casa o departamento</li>
+                            <li>Quienes tienen artículos de valor en casa</li>
+                            <li>Residentes en zonas con riesgo climático</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Seguro%20de%20Hogar." 
+                       class="card-cta" target="_blank">
+                        <span>Solicitar información</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Seguros Empresariales -->
+                <div class="solution-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            </svg>
+                        </div>
+                        <h3>Seguros Empresariales</h3>
+                    </div>
+                    <p class="card-subtitle">Soluciones para negocios</p>
+                    <p class="card-description">
+                        Protección integral para tu empresa: responsabilidad civil, 
+                        seguros de grupo para empleados, cobertura de activos y más.
+                    </p>
+                    <div class="card-ideal">
+                        <span class="ideal-label">Diseñado para:</span>
+                        <ul>
+                            <li>Empresarios con personal a su cargo</li>
+                            <li>Negocios con inventario o equipo valioso</li>
+                            <li>Profesionistas independientes</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/526251069507?text=Hola,%20tengo%20un%20negocio%20y%20me%20interesa%20información%20sobre%20seguros%20empresariales." 
+                       class="card-cta" target="_blank">
+                        <span>Solicitar información</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Ahorro e Inversión -->
+                <div class="solution-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h3>Ahorro e Inversión</h3>
+                    </div>
+                    <p class="card-subtitle">Planificación financiera</p>
+                    <p class="card-description">
+                        Planes que combinan protección con crecimiento de capital. 
+                        Ideales para metas a mediano y largo plazo, incluyendo el retiro.
+                    </p>
+                    <div class="card-ideal">
+                        <span class="ideal-label">Diseñado para:</span>
+                        <ul>
+                            <li>Quienes desean ahorrar de forma disciplinada</li>
+                            <li>Personas que planean su retiro</li>
+                            <li>Quienes buscan beneficios fiscales</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20información%20sobre%20planes%20de%20ahorro%20e%20inversión." 
+                       class="card-cta" target="_blank">
+                        <span>Solicitar información</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CTA secundario -->
+            <div class="solutions-cta" data-aos="fade-up">
+                <p>¿No encuentras lo que buscas? Contamos con más opciones de cobertura.</p>
+                <a href="https://wa.me/526251069507?text=Hola,%20busco%20un%20tipo%20de%20seguro%20que%20no%20aparece%20en%20su%20página.%20¿Pueden%20orientarme?" 
+                   class="btn btn-outline" target="_blank">
+                    <span>Consultar otras opciones</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso -->
+    <section id="proceso" class="process">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Proceso Simple</span>
+                <h2 class="section-title">
+                    Tres pasos hacia 
+                    <span class="text-gold">tu tranquilidad</span>
+                </h2>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Conversación inicial</h3>
+                        <p>Platícanos qué te interesa proteger y cuáles son tus prioridades. 
+                           Esta consulta no tiene costo ni compromiso.</p>
+                    </div>
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="process-connector"></div>
+
+                <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Propuesta personalizada</h3>
+                        <p>Analizamos tu situación y te presentamos dos o tres alternativas 
+                           con explicación clara de coberturas, costos y beneficios.</p>
+                    </div>
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="process-connector"></div>
+
+                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Activación y seguimiento</h3>
+                        <p>Una vez que elijas, nos encargamos del trámite completo. 
+                           Te acompañamos durante la vigencia de tu póliza.</p>
+                    </div>
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preguntas Frecuentes -->
+    <section id="preguntas" class="faq">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Información Útil</span>
+                <h2 class="section-title">
+                    Preguntas 
+                    <span class="text-gold">frecuentes</span>
+                </h2>
+            </div>
+
+            <div class="faq-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="faq-item">
+                    <h3>¿Cuánto cuesta un seguro?</h3>
+                    <p>El costo varía según el tipo de seguro, la cobertura y tu perfil. 
+                       Un seguro de auto puede iniciar desde $3,000 anuales; 
+                       gastos médicos desde $8,000 anuales. Te damos cotización exacta sin compromiso.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>¿Puedo pagar en mensualidades?</h3>
+                    <p>Sí. La mayoría de las pólizas permiten pago mensual, trimestral, 
+                       semestral o anual. Tú eliges la modalidad que mejor se adapte a tu presupuesto.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>¿Qué pasa si ya tengo una condición médica?</h3>
+                    <p>Depende de cada caso. Algunas condiciones preexistentes tienen periodos de espera; 
+                       otras pueden cubrirse con ajustes en la póliza. Te explicamos las opciones disponibles.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>¿Cuánto tiempo tarda la emisión de la póliza?</h3>
+                    <p>Para automóviles, generalmente el mismo día. 
+                       Para gastos médicos y vida, el proceso toma entre 3 y 7 días hábiles 
+                       dependiendo de los requisitos de suscripción.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>¿Qué respaldo tiene Inbursa?</h3>
+                    <p>Grupo Financiero Inbursa cuenta con más de 30 años de operación, 
+                       calificación AAA por Standard and Poor's, y forma parte de las empresas más sólidas de México.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>¿Qué sucede cuando necesito usar mi seguro?</h3>
+                    <p>Te acompañamos en todo el proceso de reclamación. 
+                       Ayudamos a reunir la documentación necesaria y damos seguimiento hasta la resolución.</p>
+                </div>
+            </div>
+
+            <div class="faq-more" data-aos="fade-up">
+                <p>¿Tienes alguna otra duda?</p>
+                <a href="https://wa.me/526251069507?text=Hola,%20tengo%20una%20pregunta%20sobre%20seguros." 
+                   class="btn btn-ghost" target="_blank">
+                    <span>Escríbenos directamente</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-content" data-aos="fade-right">
+                    <span class="section-tag">Contacto</span>
+                    <h2 class="section-title">
+                        Inicia la conversación 
+                        <span class="text-gold">hoy mismo</span>
+                    </h2>
+                    <p class="contact-description">
+                        Escríbenos por WhatsApp y respondemos en minutos durante horario de atención. 
+                        Sin compromiso, sin presión. Nuestro objetivo es orientarte para que tomes la mejor decisión.
+                    </p>
+
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Ubicación</h4>
+                                <p>Cuauhtémoc, Chihuahua<br>Atención presencial con cita previa</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Horario de atención</h4>
+                                <p>Lunes a viernes: 9:00 a 18:00<br>
+                                   Sábados: 9:00 a 14:00</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <p>625 106 9507</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-aos="fade-left">
+                    <div class="card-header-contact">
+                        <div class="whatsapp-icon-large">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+                                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                            </svg>
+                        </div>
+                        <h3>Escríbenos</h3>
+                        <p class="phone-display">625 106 9507</p>
+                    </div>
+                    <div class="card-body-contact">
+                        <p>Podemos ayudarte a:</p>
+                        <ul>
+                            <li>Obtener una cotización sin compromiso</li>
+                            <li>Resolver dudas sobre coberturas</li>
+                            <li>Agendar una cita presencial o llamada</li>
+                        </ul>
+                        <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20seguros." 
+                           class="btn btn-whatsapp" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" width="20" height="20">
+                                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                            </svg>
+                            <span>Iniciar Conversación</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="#inicio" class="footer-logo">
+                        <div class="logo-mark">
+                            <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M25 2L45 14V38L25 50L5 38V14L25 2Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <path d="M18 25L23 30L33 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-title">ROLOSCA</span>
+                            <span class="logo-subtitle">Agente de Seguros</span>
+                        </div>
+                    </a>
+                    <p class="footer-description">
+                        Asesoría personalizada en seguros para personas y empresas. 
+                        Ubicados en Cuauhtémoc, Chihuahua, con el respaldo de Grupo Financiero Inbursa.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Navegación</h4>
+                        <ul>
+                            <li><a href="#inicio">Inicio</a></li>
+                            <li><a href="#soluciones">Soluciones</a></li>
+                            <li><a href="#proceso">Proceso</a></li>
+                            <li><a href="#preguntas">Preguntas</a></li>
+                            <li><a href="#contacto">Contacto</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Productos</h4>
+                        <ul>
+                            <li><a href="#soluciones">Seguro de Vida</a></li>
+                            <li><a href="#soluciones">Gastos Médicos</a></li>
+                            <li><a href="#soluciones">Seguro de Auto</a></li>
+                            <li><a href="#soluciones">Seguro de Hogar</a></li>
+                            <li><a href="#soluciones">Empresarial</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contacto</h4>
+                        <ul>
+                            <li>Cuauhtémoc, Chihuahua</li>
+                            <li>625 106 9507</li>
+                            <li><a href="https://wa.me/526251069507" target="_blank">Enviar mensaje</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>2025 Rolosca Agente de Seguros. Cuauhtémoc, Chihuahua.</p>
+                    <p class="disclaimer">
+                        Agente autorizado. Las pólizas son emitidas por Seguros Inbursa, S.A., 
+                        Grupo Financiero Inbursa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
