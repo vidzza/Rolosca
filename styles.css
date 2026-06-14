@@ -626,7 +626,7 @@ ul { list-style: none; }
     position: absolute; top: 50%; left: 50%; width: 130%; aspect-ratio: 1; z-index: 0;
     transform: translate(-50%, -50%); pointer-events: none;
     background: repeating-conic-gradient(from 0deg at 50% 50%,
-        rgba(220, 180, 105, 0.13) 0deg 5deg, transparent 5deg 26deg);
+        rgba(220, 180, 105, 0.17) 0deg 5deg, transparent 5deg 26deg);
     border-radius: 50%;
     -webkit-mask: radial-gradient(circle, #000 8%, rgba(0,0,0,0.5) 32%, transparent 66%);
     mask: radial-gradient(circle, #000 8%, rgba(0,0,0,0.5) 32%, transparent 66%);
@@ -643,6 +643,19 @@ ul { list-style: none; }
 .orbit-c { inset: -12%; animation: orbit-spin 21s linear infinite; }
 .orbit-c .orbit-spark { width: 4px; height: 4px; opacity: 0.8; }
 @keyframes orbit-spin { to { transform: rotate(360deg); } }
+
+/* Destello especular que recorre el escudo (luz sobre metal pulido) */
+.shield-sweep { transform-box: view-box; opacity: 0.9; }
+.loaded .shield-sweep { animation: shield-sweep 6.5s ease-in-out infinite 2.2s; }
+@keyframes shield-sweep {
+    0% { transform: translateX(70px); }
+    15% { transform: translateX(400px); }
+    100% { transform: translateX(400px); }
+}
+/* Halo que respira */
+.shield-halo { transform-box: view-box; transform-origin: 200px 215px; }
+.loaded .shield-halo { animation: halo-breathe 7s ease-in-out infinite; }
+@keyframes halo-breathe { 0%,100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
 
 /* ═══════════════════════════════════════════════════════════════
    ILUSTRACIONES REALISTAS — animaciones por escena

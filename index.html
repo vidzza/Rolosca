@@ -168,6 +168,15 @@
                 <stop offset="0.5" stop-color="#D9B36B"/>
                 <stop offset="1" stop-color="#9A7B3F"/>
             </linearGradient>
+            <!-- Destello especular que barre el escudo -->
+            <clipPath id="shieldFaceClip">
+                <path d="M200 70 L322 110 V234 C322 318 200 398 200 398 C200 398 78 318 78 234 V110 Z"/>
+            </clipPath>
+            <linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+                <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.6"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
         </defs>
     </svg>
 
@@ -301,7 +310,7 @@
                     <div class="orbit orbit-c" aria-hidden="true"><span class="orbit-spark"></span></div>
                     <svg class="shield-svg" viewBox="0 0 400 470" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Escudo de protección Rolosca">
                         <!-- Halo -->
-                        <circle cx="200" cy="215" r="200" fill="url(#goldGlow)"/>
+                        <circle class="shield-halo" cx="200" cy="215" r="200" fill="url(#goldGlow)"/>
                         <!-- Anillos guilloché -->
                         <g class="shield-rings" stroke="url(#goldEdge)" fill="none">
                             <circle cx="200" cy="215" r="186" stroke-width="0.6" stroke-dasharray="2 7" opacity="0.5"/>
@@ -329,6 +338,10 @@
                         <ellipse class="shield-gloss" cx="160" cy="135" rx="60" ry="26" fill="url(#specBlob)" opacity="0.5"/>
                         <!-- Check tallado con relieve 3D -->
                         <path class="shield-check" d="M158 232 L190 266 L256 188" stroke="url(#goldShine)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#goldEmboss)"/>
+                        <!-- Destello especular que recorre la superficie pulida -->
+                        <g clip-path="url(#shieldFaceClip)">
+                            <path class="shield-sweep" d="M-30 70 L36 70 L8 400 L-58 400 Z" fill="url(#sweepGrad)"/>
+                        </g>
                     </svg>
 
                     <!-- Cápsulas flotantes -->
