@@ -691,6 +691,27 @@ ul { list-style: none; }
 .solution-card:hover .art-auto .car-bob { animation-duration: 1.6s; }
 .solution-card:hover .art-savings .coins { animation-duration: 1.4s; }
 
+/* ═══════════════════════════════════════════════════════════════
+   ENSAMBLADO al entrar en viewport + MICROINTERACCIONES premium
+   ═══════════════════════════════════════════════════════════════ */
+/* Las ilustraciones aparecen con resorte y los trazos se dibujan */
+[data-ico3d] .art { opacity: 0; transform: scale(0.5); transform-origin: 50% 55%;
+    transition: opacity 0.5s var(--ease-out), transform 0.9s var(--ease-spring); }
+[data-ico3d].art-in .art { opacity: 1; transform: scale(1); }
+[data-ico3d] [filter="url(#goldEmboss)"] { stroke-dasharray: 130; stroke-dashoffset: 130; }
+[data-ico3d].art-in [filter="url(#goldEmboss)"] { animation: art-draw 1.1s var(--ease-out) forwards 0.35s; }
+@keyframes art-draw { to { stroke-dashoffset: 0; } }
+
+/* Glow que sigue al cursor dentro de los botones */
+.btn::after { content: ''; position: absolute; width: 150px; height: 150px; border-radius: 50%;
+    left: var(--bx, 50%); top: var(--by, 50%); transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 70%);
+    opacity: 0; transition: opacity 0.35s; pointer-events: none; z-index: 0; mix-blend-mode: soft-light; }
+.btn:hover::after { opacity: 1; }
+.btn > * { position: relative; z-index: 1; }
+.btn:active { transform: scale(0.97); }
+.filter-chip:active, .card-cta:active, .nav-link:active { transform: scale(0.96); }
+
 /* ═══════ RESPONSIVE ═══════ */
 @media (max-width: 1024px) {
     .hero-container { grid-template-columns: 1fr; gap: 3rem; }
@@ -737,5 +758,7 @@ ul { list-style: none; }
     .statement-text .w { color: var(--ink) !important; opacity: 1 !important; }
     .chart-line { stroke-dashoffset: 0 !important; }
     .statement-glyph .sg-check { stroke-dashoffset: 0 !important; }
+    [data-ico3d] .art { opacity: 1 !important; transform: none !important; }
+    [data-ico3d] [filter="url(#goldEmboss)"] { stroke-dashoffset: 0 !important; }
     .shield-shadow, .shield-back, .shield-face, .shield-inner, .shield-guilloche, .shield-gloss, .shield-rings, .cap { opacity: 1 !important; }
 }

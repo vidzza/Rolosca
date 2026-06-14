@@ -379,7 +379,7 @@
             });
         }
 
-        /* ───────── Botones magnéticos ───────── */
+        /* ───────── Botones magnéticos + chips ───────── */
         if (finePointer && !reduceMotion) {
             document.querySelectorAll('[data-magnetic]').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
@@ -388,7 +388,68 @@
                 });
                 btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
             });
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.addEventListener('mousemove', (e) => {
+                    const r = chip.getBoundingClientRect();
+                    chip.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px, ${(e.clientY - r.top - r.height / 2) * 0.22}px)`;
+                });
+                chip.addEventListener('mouseleave', () => { chip.style.transform = ''; });
+            });
+            /* Glow que sigue al cursor dentro de cada botón */
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const r = btn.getBoundingClientRect();
+                    btn.style.setProperty('--bx', (e.clientX - r.left) + 'px');
+                    btn.style.setProperty('--by', (e.clientY - r.top) + 'px');
+                });
+            });
         }
+
+        /* ───────── Ensamblado de ilustraciones al entrar en viewport ───────── */
+        const artEls = document.querySelectorAll('[data-ico3d]');
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            artEls.forEach(el => el.classList.add('art-in'));
+        } else {
+            const ao = new IntersectionObserver((ents, obs) => {
+                ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('art-in'); obs.unobserve(en.target); } });
+            }, { threshold: 0.25 });
+            artEls.forEach(el => ao.observe(el));
+        }
+
+        /* ───────── Sonidos táctiles sutiles (WebAudio, tras 1ª interacción) ───────── */
+        const sfx = (function () {
+            let ctx;
+            function ensure() {
+                if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+                if (ctx.state === 'suspended') ctx.resume();
+                return ctx;
+            }
+            addEventListener('pointerdown', ensure, { passive: true });
+            function tone(freq, dur, gain, type) {
+                const c = ensure(); if (!c) return;
+                const o = c.createOscillator(), g = c.createGain();
+                o.type = type || 'sine'; o.frequency.value = freq;
+                o.connect(g); g.connect(c.destination);
+                const t = c.currentTime;
+                g.gain.setValueAtTime(0.0001, t);
+                g.gain.exponentialRampToValueAtTime(gain, t + 0.012);
+                g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+                o.start(t); o.stop(t + dur + 0.03);
+            }
+            return { hover: () => tone(1180, 0.05, 0.012, 'sine'), tap: () => tone(620, 0.13, 0.045, 'triangle') };
+        })();
+        let lastHoverSfx = 0;
+        if (finePointer) {
+            document.querySelectorAll('.btn, .nav-link, .filter-chip').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    const n = performance.now();
+                    if (n - lastHoverSfx > 70) { lastHoverSfx = n; sfx.hover(); }
+                });
+            });
+        }
+        document.querySelectorAll('.btn, .card-cta, .nav-link, .wa-option, .filter-chip').forEach(el => {
+            el.addEventListener('click', () => sfx.tap());
+        });
 
         /* ───────── Split del título del hero (letra por letra) ───────── */
         if (!reduceMotion) {
