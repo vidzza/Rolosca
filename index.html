@@ -1,67 +1,226 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rolosca Agente de Seguros en Cuauhtémoc, Chihuahua. Asesoría personalizada para encontrar la protección que necesitas. Respaldados por Grupo Financiero Inbursa.">
-    <meta name="keywords" content="seguros Cuauhtémoc, agente de seguros Chihuahua, Rolosca, seguro de vida, gastos médicos, seguro de auto, Inbursa">
+    <meta name="description" content="Rolosca Agente de Seguros en Cuauhtémoc, Chihuahua. Asesoría personalizada con Sebastián Rodríguez y Susy Loya. Respaldados por Grupo Financiero Inbursa.">
+    <meta name="keywords" content="seguros Cuauhtémoc, agente de seguros Chihuahua, Rolosca, seguro de vida, gastos médicos, seguro de auto, Inbursa, Sebastián Rodríguez, Susy Loya">
+    <meta name="theme-color" content="#0A1424">
     <title>Rolosca Agente de Seguros | Cuauhtémoc, Chihuahua</title>
-    
-    <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
-    <!-- Sugerencia: Para mayor rendimiento, minifica los archivos CSS y JS en producción. -->
 </head>
-<body>
-    <!-- Cursor personalizado -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+<body class="loading">
+    <!-- Texturas globales -->
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
+
+    <!-- ███████  SVG DEFS GLOBALES (gradientes y filtros reutilizables)  ███████ -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <!-- Oro pulido -->
+            <linearGradient id="goldEdge" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#FBEFC9"/>
+                <stop offset="0.35" stop-color="#E3C572"/>
+                <stop offset="0.65" stop-color="#B98F40"/>
+                <stop offset="1" stop-color="#7C5E2C"/>
+            </linearGradient>
+            <linearGradient id="goldShine" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFF6DC"/>
+                <stop offset="1" stop-color="#C9A962"/>
+            </linearGradient>
+            <linearGradient id="navyFace" x1="0" y1="0" x2="0.4" y2="1">
+                <stop offset="0" stop-color="#1C3556"/>
+                <stop offset="0.55" stop-color="#102640"/>
+                <stop offset="1" stop-color="#091828"/>
+            </linearGradient>
+            <linearGradient id="glassTile" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#21426B"/>
+                <stop offset="1" stop-color="#0C1D33"/>
+            </linearGradient>
+            <linearGradient id="glassShine" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.5"/>
+                <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.05"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="goldGlow" cx="0.5" cy="0.45" r="0.55">
+                <stop offset="0" stop-color="#C9A962" stop-opacity="0.55"/>
+                <stop offset="1" stop-color="#C9A962" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="ribbonGold" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#C9A962" stop-opacity="0"/>
+                <stop offset="0.5" stop-color="#F0DCA8" stop-opacity="0.9"/>
+                <stop offset="1" stop-color="#C9A962" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="waveGold" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#7C5E2C" stop-opacity="0.5"/>
+                <stop offset="0.5" stop-color="#E3C572" stop-opacity="0.85"/>
+                <stop offset="1" stop-color="#7C5E2C" stop-opacity="0.5"/>
+            </linearGradient>
+            <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.45"/>
+            </filter>
+            <filter id="iconGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="2.2" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+
+            <!-- ███  Sistema 3D realista glossy  ███ -->
+            <!-- Oro pulido como metal real (luz arriba-izquierda) -->
+            <radialGradient id="goldOrb" cx="0.34" cy="0.28" r="0.92">
+                <stop offset="0" stop-color="#FFFBEC"/>
+                <stop offset="0.28" stop-color="#F3D78F"/>
+                <stop offset="0.62" stop-color="#C29A4E"/>
+                <stop offset="0.85" stop-color="#8A6B33"/>
+                <stop offset="1" stop-color="#5C451F"/>
+            </radialGradient>
+            <!-- Cara de cristal convexa -->
+            <radialGradient id="glassFace3d" cx="0.5" cy="0.3" r="0.95">
+                <stop offset="0" stop-color="#345B8C"/>
+                <stop offset="0.5" stop-color="#1A3656"/>
+                <stop offset="1" stop-color="#0A1C30"/>
+            </radialGradient>
+            <!-- Reflejo superior del cristal -->
+            <linearGradient id="faceSheen" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.6"/>
+                <stop offset="0.16" stop-color="#FFFFFF" stop-opacity="0.14"/>
+                <stop offset="0.46" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <!-- Brillo especular puntual -->
+            <radialGradient id="specBlob" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+                <stop offset="0.6" stop-color="#FFFFFF" stop-opacity="0.18"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+            </radialGradient>
+            <!-- Cristal para escudo (cara) -->
+            <radialGradient id="navyDome" cx="0.5" cy="0.26" r="1.05">
+                <stop offset="0" stop-color="#2E558A"/>
+                <stop offset="0.45" stop-color="#16314F"/>
+                <stop offset="1" stop-color="#08182B"/>
+            </radialGradient>
+            <!-- Sombra suave grande y realista -->
+            <filter id="dropSoft" x="-60%" y="-60%" width="220%" height="240%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.55"/>
+            </filter>
+            <!-- Bisel 3D real por iluminación especular (luz arriba-izquierda) -->
+            <filter id="bevel3d" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="blur"/>
+                <feSpecularLighting in="blur" surfaceScale="3.4" specularConstant="0.95" specularExponent="22" lighting-color="#FFFFFF" result="spec">
+                    <fePointLight x="-30" y="-40" z="90"/>
+                </feSpecularLighting>
+                <feComposite in="spec" in2="SourceAlpha" operator="in" result="specClip"/>
+                <feMerge>
+                    <feMergeNode in="SourceGraphic"/>
+                    <feMergeNode in="specClip"/>
+                </feMerge>
+            </filter>
+            <!-- Emboss para símbolos dorados (volumen tallado) -->
+            <filter id="goldEmboss" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="0.8" result="b"/>
+                <feSpecularLighting in="b" surfaceScale="2.6" specularConstant="1" specularExponent="20" lighting-color="#FFF6DC" result="s">
+                    <fePointLight x="-20" y="-30" z="70"/>
+                </feSpecularLighting>
+                <feComposite in="s" in2="SourceAlpha" operator="in" result="sc"/>
+                <feMerge>
+                    <feMergeNode in="SourceGraphic"/>
+                    <feMergeNode in="sc"/>
+                </feMerge>
+            </filter>
+
+            <!-- ███  Materiales para ilustraciones realistas  ███ -->
+            <radialGradient id="discGlow" cx="0.5" cy="0.42" r="0.62">
+                <stop offset="0" stop-color="#D4B16A" stop-opacity="0.32"/>
+                <stop offset="0.55" stop-color="#C9A962" stop-opacity="0.07"/>
+                <stop offset="1" stop-color="#C9A962" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="bodyNavy" x1="0.2" y1="0" x2="0.7" y2="1">
+                <stop offset="0" stop-color="#33598A"/>
+                <stop offset="0.5" stop-color="#1A3756"/>
+                <stop offset="1" stop-color="#0C2138"/>
+            </linearGradient>
+            <linearGradient id="bodyNavyV" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#2C4F7C"/>
+                <stop offset="1" stop-color="#0D2239"/>
+            </linearGradient>
+            <linearGradient id="glassBlue" x1="0" y1="0" x2="0.4" y2="1">
+                <stop offset="0" stop-color="#A9D2F2"/>
+                <stop offset="0.5" stop-color="#5E9AC9"/>
+                <stop offset="1" stop-color="#2B5783"/>
+            </linearGradient>
+            <linearGradient id="warmWindow" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFF1C4"/>
+                <stop offset="1" stop-color="#E7AE52"/>
+            </linearGradient>
+            <radialGradient id="rubyGrad" cx="0.38" cy="0.3" r="0.85">
+                <stop offset="0" stop-color="#FFC0BD"/>
+                <stop offset="0.32" stop-color="#F26D74"/>
+                <stop offset="0.7" stop-color="#C42F45"/>
+                <stop offset="1" stop-color="#7E1A2E"/>
+            </radialGradient>
+            <linearGradient id="roofGold" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FBEBBE"/>
+                <stop offset="0.5" stop-color="#D9B36B"/>
+                <stop offset="1" stop-color="#9A7B3F"/>
+            </linearGradient>
+        </defs>
+    </svg>
 
     <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-content">
-            <div class="loader-logo">
-                <img src="logo.png" alt="Logo Rolosca Agente de Seguros" width="140" height="140" style="display:block;max-width:100%;height:auto;animation:loader-pulse 2s ease-in-out infinite;" loading="lazy" />
+            <div class="loader-emblem" aria-hidden="true">
+                <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="loader-ring" cx="60" cy="60" r="52" stroke="url(#goldEdge)" stroke-width="1.4" stroke-dasharray="3 8"/>
+                    <path class="loader-shield" d="M60 22 L92 36 V64 C92 86 60 100 60 100 C60 100 28 86 28 64 V36 Z" stroke="url(#goldEdge)" stroke-width="1.6" fill="rgba(201,169,98,0.05)"/>
+                    <path class="loader-check" d="M47 61 L56 70 L75 49" stroke="url(#goldShine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </div>
-            <p class="loader-text">Rolosca</p>
+            <p class="loader-text">ROLOSCA</p>
+            <span class="loader-sub">Agente de Seguros</span>
         </div>
     </div>
 
-    <!-- Botón flotante WhatsApp -->
-    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20asesoría%20sobre%20seguros." 
-       class="whatsapp-float" 
-       target="_blank" 
-       rel="noopener noreferrer"
-       aria-label="Contactar por WhatsApp">
-        <div class="whatsapp-pulse"></div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
-            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
-        </svg>
-        <span class="whatsapp-tooltip">Escríbenos</span>
-    </a>
+    <!-- FAB WhatsApp con selector de asesor -->
+    <div class="wa-fab" id="waFab">
+        <div class="wa-options" id="waOptions" aria-hidden="true">
+            <a class="wa-option" href="https://wa.me/526251134526?text=Hola%20Sebastián,%20me%20interesa%20recibir%20asesoría%20sobre%20seguros." target="_blank" rel="noopener noreferrer">
+                <span class="wa-avatar">SR</span>
+                <span class="wa-meta"><strong>Sebastián Rodríguez</strong><small>Agente de seguros</small></span>
+            </a>
+            <a class="wa-option" href="https://wa.me/526251069607?text=Hola%20Susy,%20me%20interesa%20recibir%20asesoría%20sobre%20seguros." target="_blank" rel="noopener noreferrer">
+                <span class="wa-avatar">SL</span>
+                <span class="wa-meta"><strong>Susy Loya</strong><small>Agente de seguros</small></span>
+            </a>
+        </div>
+        <button class="wa-toggle" id="waToggle" aria-label="Contactar por WhatsApp" aria-expanded="false">
+            <span class="whatsapp-pulse" aria-hidden="true"></span>
+            <svg class="wa-icon-chat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+            </svg>
+            <svg class="wa-icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+    </div>
 
     <!-- Header -->
     <header class="header" id="header">
         <nav class="navbar">
             <div class="container">
-                <a href="#inicio" class="logo">
-                    <div class="logo-mark" aria-label="Rolosca Agente de Seguros" role="img" style="width:45px;height:45px;display:flex;align-items:center;justify-content:center;">
-                        <img src="logo.png" alt="Logo Rolosca Agente de Seguros" title="Rolosca Agente de Seguros" width="45" height="45" style="display:block;max-width:100%;height:auto;" loading="lazy" />
-                    </div>
+                <a href="#inicio" class="logo" data-magnetic>
+                    <div class="logo-mark"><img src="logo.png" alt="Logo Rolosca Agente de Seguros" width="44" height="44" loading="eager" /></div>
                     <div class="logo-text">
                         <span class="logo-title">ROLOSCA</span>
                         <span class="logo-subtitle">Agente de Seguros</span>
                     </div>
                 </a>
 
-                <button class="nav-toggle" id="navToggle" aria-label="Menú">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+                    <span></span><span></span><span></span>
                 </button>
 
                 <ul class="nav-menu" id="navMenu">
@@ -75,182 +234,159 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- ═══════════════════  HERO  ═══════════════════ -->
     <section id="inicio" class="hero">
-        <div class="hero-bg">
-            <div class="hero-gradient"></div>
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-aurora hero-aurora-1"></div>
+            <div class="hero-aurora hero-aurora-2"></div>
+            <div class="hero-mesh"></div>
             <div class="hero-grid"></div>
             <div class="hero-particles" id="particles"></div>
+            <div class="hero-vignette"></div>
         </div>
 
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="hero-badge" data-aos="fade-up">
+                <div class="hero-badge reveal">
                     <span class="badge-dot"></span>
                     <span>Asesoría sin costo</span>
                     <span class="badge-line"></span>
                     <span>Cuauhtémoc, Chihuahua</span>
                 </div>
 
-                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
-                    <span class="title-line">La protección adecuada</span>
-                    <span class="title-line title-accent">para cada etapa de tu vida</span>
+                <h1 class="hero-title">
+                    <span class="title-line" data-split>La protección adecuada</span>
+                    <span class="title-line title-accent" data-split data-split-delay="9">para cada etapa de tu vida</span>
                 </h1>
 
-                <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
-                    Analizamos tu situación y te presentamos opciones claras. 
-                    Sin tecnicismos, sin presión. Solo soluciones que se adaptan 
+                <p class="hero-description reveal" data-delay="280">
+                    Analizamos tu situación y te presentamos opciones claras.
+                    Sin tecnicismos, sin presión. Solo soluciones que se adaptan
                     a lo que realmente necesitas.
                 </p>
 
-                <div class="hero-cta" data-aos="fade-up" data-aos-delay="300">
-                    <a href="https://wa.me/526251069507?text=Hola,%20me%20gustaría%20recibir%20asesoría%20personalizada%20sobre%20seguros." 
-                       class="btn btn-primary" target="_blank">
+                <div class="hero-cta reveal" data-delay="380">
+                    <a href="https://wa.me/526251134526?text=Hola%20Sebastián,%20me%20gustaría%20recibir%20asesoría%20personalizada%20sobre%20seguros."
+                       class="btn btn-primary" target="_blank" rel="noopener" data-magnetic>
                         <span>Solicitar Asesoría</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="#soluciones" class="btn btn-ghost">
-                        <span>Explorar Opciones</span>
-                    </a>
+                    <a href="#soluciones" class="btn btn-ghost"><span>Explorar Opciones</span></a>
                 </div>
 
-                <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+                <div class="hero-stats reveal" data-delay="480">
                     <div class="stat">
-                        <span class="stat-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                                <polyline points="22 4 12 14.01 9 11.01"/>
-                            </svg>
-                        </span>
+                        <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
                         <span class="stat-label">Cotización en minutos</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat">
-                        <span class="stat-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                                <polyline points="22 4 12 14.01 9 11.01"/>
-                            </svg>
-                        </span>
+                        <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
                         <span class="stat-label">Explicación transparente</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat">
-                        <span class="stat-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                                <polyline points="22 4 12 14.01 9 11.01"/>
-                            </svg>
-                        </span>
+                        <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
                         <span class="stat-label">Pagos flexibles</span>
                     </div>
                 </div>
             </div>
 
-            <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
-                <div class="visual-card">
-                    <div class="card-shine"></div>
-                    <div class="card-content">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="40" cy="40" r="38" stroke="url(#cardGrad1)" stroke-width="1"/>
-                                <circle cx="40" cy="40" r="28" stroke="url(#cardGrad2)" stroke-width="1"/>
-                                <path d="M40 15L55 25V45L40 55L25 45V25L40 15Z" fill="url(#cardGrad3)" opacity="0.3"/>
-                                <path d="M32 40L38 46L50 32" stroke="#C9A962" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <!-- SVG decorativo, lazy load habilitado -->
-                                <defs>
-                                    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#C9A962" stop-opacity="0.5"/>
-                                        <stop offset="100%" stop-color="#8B7355" stop-opacity="0.1"/>
-                                    </linearGradient>
-                                    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#C9A962" stop-opacity="0.3"/>
-                                        <stop offset="100%" stop-color="#C9A962" stop-opacity="0.1"/>
-                                    </linearGradient>
-                                    <linearGradient id="cardGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#C9A962"/>
-                                        <stop offset="100%" stop-color="#8B7355"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <h3>Respaldo Inbursa</h3>
-                        <p>Más de 30 años de solidez financiera y presencia en todo México</p>
-                    </div>
-                </div>
+            <!-- Escudo dimensional -->
+            <div class="hero-visual reveal" data-delay="200">
+                <div class="hero-rays" aria-hidden="true"></div>
+                <div class="shield-stage" id="shieldStage">
+                    <div class="orbit orbit-a" aria-hidden="true"><span class="orbit-spark"></span></div>
+                    <div class="orbit orbit-b" aria-hidden="true"><span class="orbit-spark"></span></div>
+                    <div class="orbit orbit-c" aria-hidden="true"><span class="orbit-spark"></span></div>
+                    <svg class="shield-svg" viewBox="0 0 400 470" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Escudo de protección Rolosca">
+                        <!-- Halo -->
+                        <circle cx="200" cy="215" r="200" fill="url(#goldGlow)"/>
+                        <!-- Anillos guilloché -->
+                        <g class="shield-rings" stroke="url(#goldEdge)" fill="none">
+                            <circle cx="200" cy="215" r="186" stroke-width="0.6" stroke-dasharray="2 7" opacity="0.5"/>
+                            <circle cx="200" cy="215" r="166" stroke-width="0.8" opacity="0.3"/>
+                        </g>
+                        <!-- Sombra proyectada -->
+                        <ellipse class="shield-shadow" cx="200" cy="432" rx="96" ry="17" fill="#000" opacity="0.5" filter="url(#softShadow)"/>
 
-                <div class="visual-float visual-float-1">
-                    <span class="float-icon-svg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </span>
-                    <span>Familias</span>
-                </div>
-                <div class="visual-float visual-float-2">
-                    <span class="float-icon-svg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                    </span>
-                    <span>Salud</span>
-                </div>
-                <div class="visual-float visual-float-3">
-                    <span class="float-icon-svg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="1" y="6" width="22" height="12" rx="2"/>
-                            <circle cx="6" cy="18" r="2"/>
-                            <circle cx="18" cy="18" r="2"/>
-                        </svg>
-                    </span>
-                    <span>Vehículos</span>
+                        <!-- Capa trasera (marco metálico dorado 3D) -->
+                        <path class="shield-back" d="M200 58 L334 102 V236 C334 330 200 412 200 412 C200 412 66 330 66 236 V102 Z" fill="url(#goldOrb)" filter="url(#dropSoft)"/>
+                        <!-- Cara principal (domo de cristal) -->
+                        <path class="shield-face" d="M200 70 L322 110 V234 C322 318 200 398 200 398 C200 398 78 318 78 234 V110 Z" fill="url(#navyDome)" stroke="url(#goldShine)" stroke-width="1.4" stroke-opacity="0.7"/>
+                        <!-- Panel interno -->
+                        <path class="shield-inner" d="M200 92 L302 125 V232 C302 300 200 366 200 366 C200 366 98 300 98 232 V125 Z" fill="none" stroke="url(#goldEdge)" stroke-width="1.3" opacity="0.7"/>
+                        <!-- Guilloché interior -->
+                        <g class="shield-guilloche" stroke="url(#goldEdge)" stroke-width="0.5" fill="none" opacity="0.3">
+                            <circle cx="200" cy="230" r="64"/>
+                            <circle cx="200" cy="185" r="45"/>
+                            <circle cx="200" cy="275" r="45"/>
+                            <circle cx="160" cy="230" r="45"/>
+                            <circle cx="240" cy="230" r="45"/>
+                        </g>
+                        <!-- Reflejo glossy superior del domo -->
+                        <path class="shield-gloss" d="M200 70 L322 110 V196 C300 213 250 221 200 221 C150 221 100 213 78 196 V110 Z" fill="url(#faceSheen)" opacity="0.75"/>
+                        <ellipse class="shield-gloss" cx="160" cy="135" rx="60" ry="26" fill="url(#specBlob)" opacity="0.5"/>
+                        <!-- Check tallado con relieve 3D -->
+                        <path class="shield-check" d="M158 232 L190 266 L256 188" stroke="url(#goldShine)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#goldEmboss)"/>
+                    </svg>
+
+                    <!-- Cápsulas flotantes -->
+                    <div class="cap cap-1"><span class="cap-ico" data-ico="user"></span><span>Familias</span></div>
+                    <div class="cap cap-2"><span class="cap-ico" data-ico="pulse"></span><span>Salud</span></div>
+                    <div class="cap cap-3"><span class="cap-ico" data-ico="car"></span><span>Vehículos</span></div>
+                    <div class="cap cap-4"><span class="cap-ico" data-ico="home"></span><span>Hogar</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="hero-scroll">
+        <a href="#soluciones" class="hero-scroll" aria-label="Desplazar a soluciones">
             <span>Conoce las opciones</span>
-            <div class="scroll-indicator">
-                <div class="scroll-dot"></div>
-            </div>
-        </div>
+            <div class="scroll-indicator"><div class="scroll-dot"></div></div>
+        </a>
     </section>
 
-    <!-- Propuesta de Valor -->
+    <!-- Marquee -->
+    <div class="trust-marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>Respaldo Inbursa</span><span class="dot">◆</span>
+            <span>Calificación AAA</span><span class="dot">◆</span>
+            <span>Más de 30 años de solidez</span><span class="dot">◆</span>
+            <span>Asesoría sin costo</span><span class="dot">◆</span>
+            <span>Cobertura en todo México</span><span class="dot">◆</span>
+            <span>Respaldo Inbursa</span><span class="dot">◆</span>
+            <span>Calificación AAA</span><span class="dot">◆</span>
+            <span>Más de 30 años de solidez</span><span class="dot">◆</span>
+            <span>Asesoría sin costo</span><span class="dot">◆</span>
+            <span>Cobertura en todo México</span><span class="dot">◆</span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════  PROPUESTA DE VALOR  ═══════════════════ -->
     <section class="value-prop">
+        <div class="sec-orb sec-orb-gold" data-parallax="0.08" aria-hidden="true"></div>
+        <div class="sec-orb sec-orb-navy" data-parallax="0.14" aria-hidden="true"></div>
+        <!-- Cinta de conexión animada entre pilares -->
+        <svg class="value-connector" viewBox="0 0 1200 200" fill="none" preserveAspectRatio="none" aria-hidden="true">
+            <path class="vc-path" d="M120 100 C 360 20, 440 180, 600 100 S 840 20, 1080 100" stroke="url(#ribbonGold)" stroke-width="1.4" fill="none"/>
+            <circle class="vc-comet" r="3.5" fill="url(#goldShine)">
+                <animateMotion dur="7s" repeatCount="indefinite" rotate="auto" keyPoints="0;1" keyTimes="0;1" calcMode="linear" path="M120 100 C 360 20, 440 180, 600 100 S 840 20, 1080 100"/>
+            </circle>
+        </svg>
         <div class="container">
             <div class="value-grid">
-                <div class="value-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                            <line x1="12" y1="17" x2="12.01" y2="17"/>
-                        </svg>
-                    </div>
+                <div class="value-item reveal reveal-left" data-delay="80">
+                    <div class="value-icon-3d" data-ico3d="guidance"></div>
                     <h3>Orientación clara</h3>
                     <p>Explicamos cada opción en términos sencillos para que tomes decisiones informadas</p>
                 </div>
-                <div class="value-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                    </div>
+                <div class="value-item reveal" data-delay="180">
+                    <div class="value-icon-3d" data-ico3d="solidity"></div>
                     <h3>Respaldo sólido</h3>
                     <p>Trabajamos con Grupo Financiero Inbursa, una de las instituciones más estables del país</p>
                 </div>
-                <div class="value-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        </svg>
-                    </div>
+                <div class="value-item reveal reveal-right" data-delay="280">
+                    <div class="value-icon-3d" data-ico3d="support"></div>
                     <h3>Acompañamiento continuo</h3>
                     <p>No desaparecemos después de la firma. Estamos contigo durante toda la vigencia</p>
                 </div>
@@ -258,511 +394,313 @@
         </div>
     </section>
 
-    <!-- Soluciones Section -->
+    <!-- ═══════════════════  SOLUCIONES (explorador interactivo)  ═══════════════════ -->
     <section id="soluciones" class="solutions">
+        <div class="sec-orb sec-orb-gold" data-parallax="0.07" style="top:8%;right:-6%" aria-hidden="true"></div>
+        <div class="sec-orb sec-orb-navy" data-parallax="0.12" style="bottom:6%;left:-8%" aria-hidden="true"></div>
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header reveal">
                 <span class="section-tag">Soluciones de Protección</span>
-                <h2 class="section-title">
-                    <span>Encuentra la cobertura</span>
-                    <span class="text-gold">que se adapta a ti</span>
-                </h2>
-                <p class="section-subtitle">
-                    Cada situación es diferente. Selecciona lo que más te interesa 
-                    y te contactamos para darte información detallada.
-                </p>
+                <h2 class="section-title"><span>Encuentra la cobertura</span><span class="text-gold">que se adapta a ti</span></h2>
+                <p class="section-subtitle">¿Qué quieres proteger? Filtra por categoría y te contactamos con información detallada.</p>
             </div>
 
-            <div class="solutions-grid">
-                <!-- Seguro de Vida -->
-                <div class="solution-card featured" data-aos="fade-up" data-aos-delay="100">
+            <div class="filter-bar reveal" data-delay="100" role="tablist" aria-label="Filtrar soluciones">
+                <button class="filter-chip active" data-filter="all">Todos</button>
+                <button class="filter-chip" data-filter="personas">Personas y familia</button>
+                <button class="filter-chip" data-filter="patrimonio">Patrimonio</button>
+                <button class="filter-chip" data-filter="negocio">Negocio</button>
+            </div>
+
+            <div class="solutions-grid" id="solutionsGrid">
+                <!-- VIDA -->
+                <article class="solution-card featured reveal reveal-3d" data-delay="60" data-tilt data-cat="personas">
                     <div class="card-badge">Recomendado</div>
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                            </svg>
-                        </div>
-                        <h3>Seguro de Vida</h3>
-                    </div>
+                    <div class="card-glow"></div>
+                    <div class="card-icon-3d" data-ico3d="life"></div>
+                    <h3>Seguro de Vida</h3>
                     <p class="card-subtitle">Protección para tu familia</p>
-                    <p class="card-description">
-                        Garantiza estabilidad económica para quienes dependen de ti. 
-                        Incluye opciones de ahorro y beneficios en vida.
-                    </p>
-                    <div class="card-ideal">
-                        <span class="ideal-label">Diseñado para:</span>
-                        <ul>
-                            <li>Padres con hijos dependientes</li>
-                            <li>Personas con créditos hipotecarios</li>
-                            <li>Quienes buscan dejar un patrimonio asegurado</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Seguro%20de%20Vida." 
-                       class="card-cta" target="_blank">
-                        <span>Solicitar información</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
+                    <p class="card-description">Garantiza estabilidad económica para quienes dependen de ti. Incluye opciones de ahorro y beneficios en vida.</p>
+                    <div class="card-ideal"><span class="ideal-label">Diseñado para:</span><ul><li>Padres con hijos dependientes</li><li>Personas con créditos hipotecarios</li><li>Quienes buscan dejar un patrimonio asegurado</li></ul></div>
+                    <a href="https://wa.me/526251134526?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Seguro%20de%20Vida." class="card-cta" target="_blank" rel="noopener"><span>Solicitar información</span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </article>
 
-                <!-- Gastos Médicos Mayores -->
-                <div class="solution-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                            </svg>
-                        </div>
-                        <h3>Gastos Médicos Mayores</h3>
-                    </div>
+                <!-- GASTOS MÉDICOS -->
+                <article class="solution-card reveal reveal-3d" data-delay="120" data-tilt data-cat="personas">
+                    <div class="card-glow"></div>
+                    <div class="card-icon-3d" data-ico3d="health"></div>
+                    <h3>Gastos Médicos Mayores</h3>
                     <p class="card-subtitle">Atención médica de calidad</p>
-                    <p class="card-description">
-                        Acceso a hospitales y especialistas de primer nivel. 
-                        Cubre hospitalización, cirugías, tratamientos y medicamentos.
-                    </p>
-                    <div class="card-ideal">
-                        <span class="ideal-label">Diseñado para:</span>
-                        <ul>
-                            <li>Quienes no cuentan con seguridad social</li>
-                            <li>Personas que prefieren elegir su médico</li>
-                            <li>Familias que buscan cobertura amplia</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Gastos%20Médicos%20Mayores." 
-                       class="card-cta" target="_blank">
-                        <span>Solicitar información</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
+                    <p class="card-description">Acceso a hospitales y especialistas de primer nivel. Cubre hospitalización, cirugías, tratamientos y medicamentos.</p>
+                    <div class="card-ideal"><span class="ideal-label">Diseñado para:</span><ul><li>Quienes no cuentan con seguridad social</li><li>Personas que prefieren elegir su médico</li><li>Familias que buscan cobertura amplia</li></ul></div>
+                    <a href="https://wa.me/526251069607?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Gastos%20Médicos%20Mayores." class="card-cta" target="_blank" rel="noopener"><span>Solicitar información</span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </article>
 
-                <!-- Seguro de Auto -->
-                <div class="solution-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="1" y="6" width="22" height="12" rx="2"/>
-                                <circle cx="6" cy="18" r="2"/>
-                                <circle cx="18" cy="18" r="2"/>
-                                <path d="M4 6l3-4h10l3 4"/>
-                            </svg>
-                        </div>
-                        <h3>Seguro de Auto</h3>
-                    </div>
+                <!-- AUTO -->
+                <article class="solution-card reveal reveal-3d" data-delay="180" data-tilt data-cat="patrimonio">
+                    <div class="card-glow"></div>
+                    <div class="card-icon-3d" data-ico3d="auto"></div>
+                    <h3>Seguro de Auto</h3>
                     <p class="card-subtitle">Protección vehicular completa</p>
-                    <p class="card-description">
-                        Cobertura integral: colisiones, robo total, daños a terceros. 
-                        Incluye asistencia vial las 24 horas y auto sustituto.
-                    </p>
-                    <div class="card-ideal">
-                        <span class="ideal-label">Diseñado para:</span>
-                        <ul>
-                            <li>Propietarios de vehículos nuevos o seminuevos</li>
-                            <li>Quienes viajan frecuentemente en carretera</li>
-                            <li>Conductores que buscan tranquilidad al volante</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20cotizar%20Seguro%20de%20Auto." 
-                       class="card-cta" target="_blank">
-                        <span>Cotizar ahora</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
+                    <p class="card-description">Cobertura integral: colisiones, robo total, daños a terceros. Incluye asistencia vial las 24 horas y auto sustituto.</p>
+                    <div class="card-ideal"><span class="ideal-label">Diseñado para:</span><ul><li>Propietarios de vehículos nuevos o seminuevos</li><li>Quienes viajan frecuentemente en carretera</li><li>Conductores que buscan tranquilidad al volante</li></ul></div>
+                    <a href="https://wa.me/526251134526?text=Hola,%20me%20interesa%20cotizar%20Seguro%20de%20Auto." class="card-cta" target="_blank" rel="noopener"><span>Cotizar ahora</span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </article>
 
-                <!-- Seguro de Hogar -->
-                <div class="solution-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                <polyline points="9 22 9 12 15 12 15 22"/>
-                            </svg>
-                        </div>
-                        <h3>Seguro de Hogar</h3>
-                    </div>
+                <!-- HOGAR -->
+                <article class="solution-card reveal reveal-3d" data-delay="240" data-tilt data-cat="patrimonio">
+                    <div class="card-glow"></div>
+                    <div class="card-icon-3d" data-ico3d="home"></div>
+                    <h3>Seguro de Hogar</h3>
                     <p class="card-subtitle">Tu patrimonio resguardado</p>
-                    <p class="card-description">
-                        Protege la estructura de tu casa y su contenido. 
-                        Cobertura ante incendio, robo, fenómenos naturales y responsabilidad civil.
-                    </p>
-                    <div class="card-ideal">
-                        <span class="ideal-label">Diseñado para:</span>
-                        <ul>
-                            <li>Propietarios de casa o departamento</li>
-                            <li>Quienes tienen artículos de valor en casa</li>
-                            <li>Residentes en zonas con riesgo climático</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Seguro%20de%20Hogar." 
-                       class="card-cta" target="_blank">
-                        <span>Solicitar información</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
+                    <p class="card-description">Protege la estructura de tu casa y su contenido. Cobertura ante incendio, robo, fenómenos naturales y responsabilidad civil.</p>
+                    <div class="card-ideal"><span class="ideal-label">Diseñado para:</span><ul><li>Propietarios de casa o departamento</li><li>Quienes tienen artículos de valor en casa</li><li>Residentes en zonas con riesgo climático</li></ul></div>
+                    <a href="https://wa.me/526251069607?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20Seguro%20de%20Hogar." class="card-cta" target="_blank" rel="noopener"><span>Solicitar información</span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </article>
 
-                <!-- Seguros Empresariales -->
-                <div class="solution-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="2" y="7" width="20" height="14" rx="2"/>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                            </svg>
-                        </div>
-                        <h3>Seguros Empresariales</h3>
-                    </div>
+                <!-- EMPRESARIAL -->
+                <article class="solution-card reveal reveal-3d" data-delay="300" data-tilt data-cat="negocio">
+                    <div class="card-glow"></div>
+                    <div class="card-icon-3d" data-ico3d="business"></div>
+                    <h3>Seguros Empresariales</h3>
                     <p class="card-subtitle">Soluciones para negocios</p>
-                    <p class="card-description">
-                        Protección integral para tu empresa: responsabilidad civil, 
-                        seguros de grupo para empleados, cobertura de activos y más.
-                    </p>
-                    <div class="card-ideal">
-                        <span class="ideal-label">Diseñado para:</span>
-                        <ul>
-                            <li>Empresarios con personal a su cargo</li>
-                            <li>Negocios con inventario o equipo valioso</li>
-                            <li>Profesionistas independientes</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/526251069507?text=Hola,%20tengo%20un%20negocio%20y%20me%20interesa%20información%20sobre%20seguros%20empresariales." 
-                       class="card-cta" target="_blank">
-                        <span>Solicitar información</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
+                    <p class="card-description">Protección integral para tu empresa: responsabilidad civil, seguros de grupo para empleados, cobertura de activos y más.</p>
+                    <div class="card-ideal"><span class="ideal-label">Diseñado para:</span><ul><li>Empresarios con personal a su cargo</li><li>Negocios con inventario o equipo valioso</li><li>Profesionistas independientes</li></ul></div>
+                    <a href="https://wa.me/526251134526?text=Hola,%20tengo%20un%20negocio%20y%20me%20interesa%20información%20sobre%20seguros%20empresariales." class="card-cta" target="_blank" rel="noopener"><span>Solicitar información</span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </article>
 
-                <!-- Ahorro e Inversión -->
-                <div class="solution-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <line x1="12" y1="1" x2="12" y2="23"/>
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                            </svg>
-                        </div>
-                        <h3>Ahorro e Inversión</h3>
-                    </div>
+                <!-- AHORRO -->
+                <article class="solution-card reveal reveal-3d" data-delay="360" data-tilt data-cat="patrimonio">
+                    <div class="card-glow"></div>
+                    <div class="card-icon-3d" data-ico3d="savings"></div>
+                    <h3>Ahorro e Inversión</h3>
                     <p class="card-subtitle">Planificación financiera</p>
-                    <p class="card-description">
-                        Planes que combinan protección con crecimiento de capital. 
-                        Ideales para metas a mediano y largo plazo, incluyendo el retiro.
-                    </p>
-                    <div class="card-ideal">
-                        <span class="ideal-label">Diseñado para:</span>
-                        <ul>
-                            <li>Quienes desean ahorrar de forma disciplinada</li>
-                            <li>Personas que planean su retiro</li>
-                            <li>Quienes buscan beneficios fiscales</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20información%20sobre%20planes%20de%20ahorro%20e%20inversión." 
-                       class="card-cta" target="_blank">
-                        <span>Solicitar información</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
+                    <p class="card-description">Planes que combinan protección con crecimiento de capital. Ideales para metas a mediano y largo plazo, incluyendo el retiro.</p>
+                    <div class="card-ideal"><span class="ideal-label">Diseñado para:</span><ul><li>Quienes desean ahorrar de forma disciplinada</li><li>Personas que planean su retiro</li><li>Quienes buscan beneficios fiscales</li></ul></div>
+                    <a href="https://wa.me/526251069607?text=Hola,%20me%20interesa%20información%20sobre%20planes%20de%20ahorro%20e%20inversión." class="card-cta" target="_blank" rel="noopener"><span>Solicitar información</span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </article>
             </div>
 
-            <!-- CTA secundario -->
-            <div class="solutions-cta" data-aos="fade-up">
+            <div class="solutions-cta reveal">
                 <p>¿No encuentras lo que buscas? Contamos con más opciones de cobertura.</p>
-                <a href="https://wa.me/526251069507?text=Hola,%20busco%20un%20tipo%20de%20seguro%20que%20no%20aparece%20en%20su%20página.%20¿Pueden%20orientarme?" 
-                   class="btn btn-outline" target="_blank">
-                    <span>Consultar otras opciones</span>
-                </a>
+                <a href="https://wa.me/526251134526?text=Hola,%20busco%20un%20tipo%20de%20seguro%20que%20no%20aparece%20en%20su%20página.%20¿Pueden%20orientarme?" class="btn btn-outline" target="_blank" rel="noopener" data-magnetic><span>Consultar otras opciones</span></a>
             </div>
         </div>
     </section>
 
-    <!-- Proceso -->
+    <!-- ═══════════════════  DECLARACIÓN (scroll word-highlight)  ═══════════════════ -->
+    <section class="statement" data-scrub>
+        <div class="sec-orb sec-orb-gold" data-parallax="0.06" style="top:-20%;left:50%;transform:translateX(-50%)" aria-hidden="true"></div>
+        <svg class="statement-glyph" viewBox="0 0 200 200" fill="none" data-parallax="0.16" aria-hidden="true">
+            <circle cx="100" cy="100" r="78" stroke="url(#goldEdge)" stroke-width="0.8" stroke-dasharray="2 9" opacity="0.5"/>
+            <path class="sg-shield" d="M100 44 L150 62 V108 C150 142 100 164 100 164 C100 164 50 142 50 108 V62 Z" stroke="url(#goldEdge)" stroke-width="1" fill="none" opacity="0.4"/>
+            <path class="sg-check" d="M78 104 L94 120 L126 84" stroke="url(#goldShine)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <div class="container">
+            <span class="section-tag reveal">Nuestra filosofía</span>
+            <p class="statement-text" data-words>Proteger no es vender una póliza. Es entender tu vida, anticipar lo inesperado y estar presentes el día que de verdad importa.</p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════  RESPALDO  ═══════════════════ -->
+    <section class="backing">
+        <div class="backing-bg" aria-hidden="true"></div>
+        <div class="sec-orb sec-orb-gold" data-parallax="0.1" style="top:0;right:6%" aria-hidden="true"></div>
+        <div class="container">
+            <div class="backing-inner">
+                <div class="backing-intro reveal reveal-left">
+                    <span class="section-tag">Respaldo Institucional</span>
+                    <h2 class="section-title">La solidez de <span class="text-gold">Grupo Financiero Inbursa</span></h2>
+                    <p class="section-subtitle">Cada póliza que gestionamos está respaldada por una de las instituciones financieras más sólidas de México.</p>
+                </div>
+
+                <div class="backing-chart reveal reveal-right" data-delay="120" data-scrub>
+                    <svg viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crecimiento sostenido de Inbursa">
+                        <rect x="8" y="16" width="464" height="288" rx="22" fill="url(#glassTile)" filter="url(#softShadow)"/>
+                        <rect x="8.5" y="16.5" width="463" height="287" rx="21.5" stroke="url(#goldEdge)" stroke-opacity="0.4"/>
+                        <g stroke="url(#goldEdge)" stroke-opacity="0.12">
+                            <line x1="40" y1="80" x2="440" y2="80"/><line x1="40" y1="140" x2="440" y2="140"/>
+                            <line x1="40" y1="200" x2="440" y2="200"/><line x1="40" y1="260" x2="440" y2="260"/>
+                        </g>
+                        <path class="chart-area" d="M40 252 L120 216 L200 226 L280 160 L360 134 L440 82 L440 290 L40 290 Z" fill="url(#goldGlow)" opacity="0"/>
+                        <path class="chart-line" d="M40 252 L120 216 L200 226 L280 160 L360 134 L440 82" stroke="url(#goldShine)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#iconGlow)"/>
+                        <g class="chart-dots" fill="url(#goldShine)">
+                            <circle cx="120" cy="216" r="4"/><circle cx="200" cy="226" r="4"/><circle cx="280" cy="160" r="4"/><circle cx="360" cy="134" r="4"/>
+                        </g>
+                        <circle class="chart-peak" cx="440" cy="82" r="7" fill="url(#goldShine)"/>
+                        <g class="chart-badge">
+                            <rect x="46" y="40" width="74" height="34" rx="10" fill="rgba(13,27,48,0.9)" stroke="url(#goldEdge)" stroke-opacity="0.5"/>
+                            <text x="83" y="62" text-anchor="middle" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="url(#goldShine)">AAA</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="backing-stats">
+                <div class="backing-stat reveal" data-delay="60"><span class="backing-number"><span data-count="30">0</span><span class="suffix">+</span></span><span class="backing-label">Años de operación</span></div>
+                <div class="backing-stat reveal" data-delay="140"><span class="backing-number">AAA</span><span class="backing-label">Calificación crediticia</span></div>
+                <div class="backing-stat reveal" data-delay="220"><span class="backing-number"><span data-count="100">0</span><span class="suffix">%</span></span><span class="backing-label">Cobertura nacional</span></div>
+                <div class="backing-stat reveal" data-delay="300"><span class="backing-number">24/7</span><span class="backing-label">Asistencia disponible</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════  PROCESO  ═══════════════════ -->
     <section id="proceso" class="process">
+        <div class="sec-orb sec-orb-navy" data-parallax="0.1" style="top:10%;left:-6%" aria-hidden="true"></div>
+        <svg class="float-glyph" style="top:12%;right:5%" viewBox="0 0 120 120" fill="none" data-parallax="0.22" aria-hidden="true">
+            <circle cx="60" cy="60" r="54" stroke="url(#goldEdge)" stroke-width="0.7" stroke-dasharray="1 8" opacity="0.45"/>
+            <circle cx="60" cy="60" r="34" stroke="url(#goldEdge)" stroke-width="0.6" opacity="0.3"/>
+            <circle cx="60" cy="6" r="2.4" fill="url(#goldShine)"/>
+        </svg>
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header reveal">
                 <span class="section-tag">Proceso Simple</span>
-                <h2 class="section-title">
-                    Tres pasos hacia 
-                    <span class="text-gold">tu tranquilidad</span>
-                </h2>
+                <h2 class="section-title">Tres pasos hacia <span class="text-gold">tu tranquilidad</span></h2>
             </div>
-
             <div class="process-steps">
-                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                        <h3>Conversación inicial</h3>
-                        <p>Platícanos qué te interesa proteger y cuáles son tus prioridades. 
-                           Esta consulta no tiene costo ni compromiso.</p>
-                    </div>
-                    <div class="step-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        </svg>
-                    </div>
+                <div class="process-line" aria-hidden="true"><span class="process-line-fill" id="processLine"></span><span class="process-line-spark" aria-hidden="true"></span></div>
+                <div class="process-step reveal" data-delay="80">
+                    <div class="step-number" data-num="01">01</div>
+                    <div class="step-icon-3d" data-ico3d="conversation"></div>
+                    <div class="step-content"><h3>Conversación inicial</h3><p>Platícanos qué te interesa proteger y cuáles son tus prioridades. Esta consulta no tiene costo ni compromiso.</p></div>
                 </div>
-
-                <div class="process-connector"></div>
-
-                <div class="process-step" data-aos="fade-up" data-aos-delay="200">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                        <h3>Propuesta personalizada</h3>
-                        <p>Analizamos tu situación y te presentamos dos o tres alternativas 
-                           con explicación clara de coberturas, costos y beneficios.</p>
-                    </div>
-                    <div class="step-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                        </svg>
-                    </div>
+                <div class="process-step reveal" data-delay="180">
+                    <div class="step-number" data-num="02">02</div>
+                    <div class="step-icon-3d" data-ico3d="proposal"></div>
+                    <div class="step-content"><h3>Propuesta personalizada</h3><p>Analizamos tu situación y te presentamos dos o tres alternativas con explicación clara de coberturas, costos y beneficios.</p></div>
                 </div>
-
-                <div class="process-connector"></div>
-
-                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                        <h3>Activación y seguimiento</h3>
-                        <p>Una vez que elijas, nos encargamos del trámite completo. 
-                           Te acompañamos durante la vigencia de tu póliza.</p>
-                    </div>
-                    <div class="step-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                            <path d="M9 12l2 2 4-4"/>
-                        </svg>
-                    </div>
+                <div class="process-step reveal" data-delay="280">
+                    <div class="step-number" data-num="03">03</div>
+                    <div class="step-icon-3d" data-ico3d="activation"></div>
+                    <div class="step-content"><h3>Activación y seguimiento</h3><p>Una vez que elijas, nos encargamos del trámite completo. Te acompañamos durante la vigencia de tu póliza.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Preguntas Frecuentes -->
+    <!-- ═══════════════════  FAQ  ═══════════════════ -->
     <section id="preguntas" class="faq">
+        <div class="sec-orb sec-orb-gold" data-parallax="0.09" style="top:20%;left:-8%" aria-hidden="true"></div>
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header reveal">
                 <span class="section-tag">Información Útil</span>
-                <h2 class="section-title">
-                    Preguntas 
-                    <span class="text-gold">frecuentes</span>
-                </h2>
+                <h2 class="section-title">Preguntas <span class="text-gold">frecuentes</span></h2>
             </div>
 
-            <div class="faq-grid" data-aos="fade-up" data-aos-delay="100">
-                <div class="faq-item">
-                    <h3>¿Cuánto cuesta un seguro?</h3>
-                    <p>El costo varía según el tipo de seguro, la cobertura y tu perfil. 
-                       Un seguro de auto puede iniciar desde $3,000 anuales; 
-                       gastos médicos desde $8,000 anuales. Te damos cotización exacta sin compromiso.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>¿Puedo pagar en mensualidades?</h3>
-                    <p>Sí. La mayoría de las pólizas permiten pago mensual, trimestral, 
-                       semestral o anual. Tú eliges la modalidad que mejor se adapte a tu presupuesto.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>¿Qué pasa si ya tengo una condición médica?</h3>
-                    <p>Depende de cada caso. Algunas condiciones preexistentes tienen periodos de espera; 
-                       otras pueden cubrirse con ajustes en la póliza. Te explicamos las opciones disponibles.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>¿Cuánto tiempo tarda la emisión de la póliza?</h3>
-                    <p>Para automóviles, generalmente el mismo día. 
-                       Para gastos médicos y vida, el proceso toma entre 3 y 7 días hábiles 
-                       dependiendo de los requisitos de suscripción.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>¿Qué respaldo tiene Inbursa?</h3>
-                    <p>Grupo Financiero Inbursa cuenta con más de 30 años de operación, 
-                       calificación AAA por Standard and Poor's, y forma parte de las empresas más sólidas de México.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>¿Qué sucede cuando necesito usar mi seguro?</h3>
-                    <p>Te acompañamos en todo el proceso de reclamación. 
-                       Ayudamos a reunir la documentación necesaria y damos seguimiento hasta la resolución.</p>
-                </div>
+            <div class="faq-search reveal" data-delay="60">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="search" id="faqSearch" placeholder="Busca tu duda…" aria-label="Buscar en preguntas frecuentes">
             </div>
 
-            <div class="faq-more" data-aos="fade-up">
+            <div class="faq-list reveal" data-delay="120" id="faqList">
+                <details class="faq-item"><summary><span>¿Cuánto cuesta un seguro?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-answer"><p>El costo varía según el tipo de seguro, la cobertura y tu perfil. Un seguro de auto puede iniciar desde $3,000 anuales; gastos médicos desde $8,000 anuales. Te damos cotización exacta sin compromiso.</p></div></details>
+                <details class="faq-item"><summary><span>¿Puedo pagar en mensualidades?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-answer"><p>Sí. La mayoría de las pólizas permiten pago mensual, trimestral, semestral o anual. Tú eliges la modalidad que mejor se adapte a tu presupuesto.</p></div></details>
+                <details class="faq-item"><summary><span>¿Qué pasa si ya tengo una condición médica?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-answer"><p>Depende de cada caso. Algunas condiciones preexistentes tienen periodos de espera; otras pueden cubrirse con ajustes en la póliza. Te explicamos las opciones disponibles.</p></div></details>
+                <details class="faq-item"><summary><span>¿Cuánto tiempo tarda la emisión de la póliza?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-answer"><p>Para automóviles, generalmente el mismo día. Para gastos médicos y vida, el proceso toma entre 3 y 7 días hábiles dependiendo de los requisitos de suscripción.</p></div></details>
+                <details class="faq-item"><summary><span>¿Qué respaldo tiene Inbursa?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-answer"><p>Grupo Financiero Inbursa cuenta con más de 30 años de operación, calificación AAA por Standard and Poor's, y forma parte de las empresas más sólidas de México.</p></div></details>
+                <details class="faq-item"><summary><span>¿Qué sucede cuando necesito usar mi seguro?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-answer"><p>Te acompañamos en todo el proceso de reclamación. Ayudamos a reunir la documentación necesaria y damos seguimiento hasta la resolución.</p></div></details>
+                <p class="faq-empty" id="faqEmpty" hidden>No encontramos resultados. Escríbenos y con gusto te ayudamos.</p>
+            </div>
+
+            <div class="faq-more reveal">
                 <p>¿Tienes alguna otra duda?</p>
-                <a href="https://wa.me/526251069507?text=Hola,%20tengo%20una%20pregunta%20sobre%20seguros." 
-                   class="btn btn-ghost" target="_blank">
-                    <span>Escríbenos directamente</span>
-                </a>
+                <a href="https://wa.me/526251134526?text=Hola,%20tengo%20una%20pregunta%20sobre%20seguros." class="btn btn-ghost" target="_blank" rel="noopener"><span>Escríbenos directamente</span></a>
             </div>
         </div>
     </section>
 
-    <!-- Contacto Section -->
+    <!-- ═══════════════════  CONTACTO (dos asesores)  ═══════════════════ -->
     <section id="contacto" class="contact">
+        <div class="sec-orb sec-orb-gold" data-parallax="0.08" style="top:0;right:-6%" aria-hidden="true"></div>
+        <div class="sec-orb sec-orb-navy" data-parallax="0.13" style="bottom:10%;left:-6%" aria-hidden="true"></div>
         <div class="container">
-            <div class="contact-grid">
-                <div class="contact-content" data-aos="fade-right">
-                    <span class="section-tag">Contacto</span>
-                    <h2 class="section-title">
-                        Inicia la conversación 
-                        <span class="text-gold">hoy mismo</span>
-                    </h2>
-                    <p class="contact-description">
-                        Escríbenos por WhatsApp y respondemos en minutos durante horario de atención. 
-                        Sin compromiso, sin presión. Nuestro objetivo es orientarte para que tomes la mejor decisión.
-                    </p>
+            <div class="section-header center reveal">
+                <span class="section-tag">Contacto</span>
+                <h2 class="section-title">Inicia la conversación <span class="text-gold">hoy mismo</span></h2>
+                <p class="section-subtitle center-text">Elige con quién quieres hablar. Respondemos en minutos durante horario de atención, sin compromiso.</p>
+            </div>
 
-                    <div class="contact-info">
-                        <div class="info-item" role="listitem">
-                            <div class="info-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>Ubicación</h4>
-                                <p>Oficina 1: Calle Country Lot, Km 8.5 carretera Álvaro Obregón<br>
-                                Oficina 2: Av. Morelos y 33 No. 3325<br>
-                                Cuauhtémoc, Chihuahua<br>Atención presencial con cita previa</p>
-                            </div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>Horario de atención</h4>
-                                <p>Lunes a viernes: 9:00 a 18:00<br>
-                                   Sábados: 9:00 a 14:00</p>
-                            </div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>WhatsApp</h4>
-                                <p>625 106 9507</p>
-                            </div>
-                        </div>
+            <div class="advisors">
+                <article class="advisor-card reveal reveal-3d" data-delay="80">
+                    <div class="advisor-shine" aria-hidden="true"></div>
+                    <div class="advisor-head">
+                        <span class="advisor-orbit" aria-hidden="true">
+                            <svg viewBox="0 0 96 96" fill="none">
+                                <circle class="orbit-ring" cx="48" cy="48" r="44" stroke="url(#goldEdge)" stroke-width="1" stroke-dasharray="2 7"/>
+                                <circle class="orbit-ring orbit-ring-2" cx="48" cy="48" r="38" stroke="url(#goldEdge)" stroke-width="0.7" stroke-opacity="0.4"/>
+                                <circle class="orbit-sat" cx="48" cy="4" r="2.6" fill="url(#goldShine)"/>
+                            </svg>
+                            <span class="advisor-avatar" data-initials="SR">SR</span>
+                        </span>
+                        <div><h3>Sebastián Rodríguez</h3><p class="advisor-role">Agente de seguros</p></div>
                     </div>
+                    <p class="advisor-phone"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 625 113 4526</p>
+                    <a href="https://wa.me/526251134526?text=Hola%20Sebastián,%20me%20interesa%20recibir%20información%20sobre%20seguros." class="btn btn-whatsapp" target="_blank" rel="noopener" data-magnetic>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6z"/></svg>
+                        <span>Hablar con Sebastián</span>
+                    </a>
+                </article>
+
+                <article class="advisor-card reveal reveal-3d" data-delay="180">
+                    <div class="advisor-shine" aria-hidden="true"></div>
+                    <div class="advisor-head">
+                        <span class="advisor-orbit" aria-hidden="true">
+                            <svg viewBox="0 0 96 96" fill="none">
+                                <circle class="orbit-ring" cx="48" cy="48" r="44" stroke="url(#goldEdge)" stroke-width="1" stroke-dasharray="2 7"/>
+                                <circle class="orbit-ring orbit-ring-2" cx="48" cy="48" r="38" stroke="url(#goldEdge)" stroke-width="0.7" stroke-opacity="0.4"/>
+                                <circle class="orbit-sat" cx="48" cy="4" r="2.6" fill="url(#goldShine)"/>
+                            </svg>
+                            <span class="advisor-avatar alt" data-initials="SL">SL</span>
+                        </span>
+                        <div><h3>Susy Loya</h3><p class="advisor-role">Agente de seguros</p></div>
+                    </div>
+                    <p class="advisor-phone"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 625 106 9607</p>
+                    <a href="https://wa.me/526251069607?text=Hola%20Susy,%20me%20interesa%20recibir%20información%20sobre%20seguros." class="btn btn-whatsapp" target="_blank" rel="noopener" data-magnetic>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6z"/></svg>
+                        <span>Hablar con Susy</span>
+                    </a>
+                </article>
+            </div>
+
+            <div class="contact-info-bar reveal" data-delay="240">
+                <div class="info-item">
+                    <div class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                    <div><h4>Ubicación</h4><p>Oficina 1: Calle Country Lot, Km 8.5 carretera Álvaro Obregón<br>Oficina 2: Av. Morelos y 33 No. 3325<br>Cuauhtémoc, Chihuahua · cita previa</p></div>
                 </div>
-
-                <div class="contact-card" data-aos="fade-left">
-                    <div class="card-header-contact">
-                        <div class="whatsapp-icon-large">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" loading="lazy">
-                                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
-                            </svg>
-                        </div>
-                        <h3>Escríbenos</h3>
-                        <p class="phone-display">625 106 9507</p>
-                    </div>
-                    <div class="card-body-contact">
-                        <p>Podemos ayudarte a:</p>
-                        <ul>
-                            <li>Obtener una cotización sin compromiso</li>
-                            <li>Resolver dudas sobre coberturas</li>
-                            <li>Agendar una cita presencial o llamada</li>
-                        </ul>
-                        <a href="https://wa.me/526251069507?text=Hola,%20me%20interesa%20recibir%20información%20sobre%20seguros." 
-                           class="btn btn-whatsapp" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" width="20" height="20">
-                                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
-                            </svg>
-                            <span>Iniciar Conversación</span>
-                        </a>
-                    </div>
+                <div class="info-item">
+                    <div class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                    <div><h4>Horario de atención</h4><p>Lunes a viernes: 9:00 a 18:00<br>Sábados: 9:00 a 14:00</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ═══════════════════  FOOTER  ═══════════════════ -->
     <footer class="footer">
+        <svg class="footer-wave" viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none" aria-hidden="true">
+            <path class="fw-line fw-line-1" d="M0 60 Q 360 20 720 60 T 1440 60" stroke="url(#waveGold)" stroke-width="1.4" fill="none"/>
+            <path class="fw-line fw-line-2" d="M0 70 Q 360 110 720 70 T 1440 70" stroke="url(#waveGold)" stroke-width="1" stroke-opacity="0.5" fill="none"/>
+        </svg>
         <div class="container">
             <div class="footer-main">
                 <div class="footer-brand">
                     <a href="#inicio" class="footer-logo">
-                        <div class="logo-mark" aria-label="Rolosca Agente de Seguros" role="img" style="width:45px;height:45px;display:flex;align-items:center;justify-content:center;">
-                            <img src="logo.png" alt="Logo Rolosca Agente de Seguros" title="Rolosca Agente de Seguros" width="45" height="45" style="display:block;max-width:100%;height:auto;" loading="lazy" />
-                        </div>
-                        <div class="logo-text">
-                            <span class="logo-title">ROLOSCA</span>
-                            <span class="logo-subtitle">Agente de Seguros</span>
-                        </div>
+                        <div class="logo-mark"><img src="logo.png" alt="Logo Rolosca Agente de Seguros" width="44" height="44" loading="lazy" /></div>
+                        <div class="logo-text"><span class="logo-title">ROLOSCA</span><span class="logo-subtitle">Agente de Seguros</span></div>
                     </a>
-                    <p class="footer-description">
-                        Asesoría personalizada en seguros para personas y empresas. 
-                        Ubicados en Cuauhtémoc, Chihuahua, con el respaldo de Grupo Financiero Inbursa.
-                    </p>
+                    <p class="footer-description">Asesoría personalizada en seguros para personas y empresas. Ubicados en Cuauhtémoc, Chihuahua, con el respaldo de Grupo Financiero Inbursa.</p>
                 </div>
-
                 <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Navegación</h4>
-                        <ul>
-                            <li><a href="#inicio">Inicio</a></li>
-                            <li><a href="#soluciones">Soluciones</a></li>
-                            <li><a href="#proceso">Proceso</a></li>
-                            <li><a href="#preguntas">Preguntas</a></li>
-                            <li><a href="#contacto">Contacto</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Productos</h4>
-                        <ul>
-                            <li><a href="#soluciones">Seguro de Vida</a></li>
-                            <li><a href="#soluciones">Gastos Médicos</a></li>
-                            <li><a href="#soluciones">Seguro de Auto</a></li>
-                            <li><a href="#soluciones">Seguro de Hogar</a></li>
-                            <li><a href="#soluciones">Empresarial</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contacto</h4>
-                        <ul>
-                            <li>Oficina 1: Calle Country Lot, Km 8.5 carretera Álvaro Obregón</li>
-                            <li>Oficina 2: Av. Morelos y 33 No. 3325</li>
-                            <li>Cuauhtémoc, Chihuahua</li>
-                            <li>625 106 9507</li>
-                            <li><a href="https://wa.me/526251069507" target="_blank">Enviar mensaje</a></li>
-                        </ul>
-                    </div>
+                    <div class="footer-column"><h4>Navegación</h4><ul><li><a href="#inicio">Inicio</a></li><li><a href="#soluciones">Soluciones</a></li><li><a href="#proceso">Proceso</a></li><li><a href="#preguntas">Preguntas</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
+                    <div class="footer-column"><h4>Productos</h4><ul><li><a href="#soluciones">Seguro de Vida</a></li><li><a href="#soluciones">Gastos Médicos</a></li><li><a href="#soluciones">Seguro de Auto</a></li><li><a href="#soluciones">Seguro de Hogar</a></li><li><a href="#soluciones">Empresarial</a></li></ul></div>
+                    <div class="footer-column"><h4>Contacto</h4><ul><li>Sebastián Rodríguez · 625 113 4526</li><li>Susy Loya · 625 106 9607</li><li>Oficina 1: Km 8.5 carr. Álvaro Obregón</li><li>Oficina 2: Av. Morelos y 33 No. 3325</li><li>Cuauhtémoc, Chihuahua</li></ul></div>
                 </div>
             </div>
-
             <div class="footer-bottom">
                 <div class="footer-legal">
-                    <p>2025 Rolosca Agente de Seguros. Cuauhtémoc, Chihuahua.</p>
-                    <p class="disclaimer">
-                        Agente autorizado. Las pólizas son emitidas por Seguros Inbursa, S.A., 
-                        Grupo Financiero Inbursa.
-                    </p>
+                    <p>© 2025 Rolosca Agente de Seguros. Cuauhtémoc, Chihuahua.</p>
+                    <p class="disclaimer">Agente autorizado. Las pólizas son emitidas por Seguros Inbursa, S.A., Grupo Financiero Inbursa.</p>
                 </div>
             </div>
         </div>
