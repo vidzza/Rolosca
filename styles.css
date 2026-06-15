@@ -267,8 +267,8 @@ ul { list-style: none; }
 .stat-divider { width: 1px; height: 16px; background: var(--line); }
 
 /* Escudo */
-.hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-height: 480px; }
-.shield-stage { position: relative; width: min(440px, 92%); aspect-ratio: 400 / 470; transform-style: preserve-3d; transition: transform 0.3s var(--ease-out); }
+.hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-height: 480px; perspective: 1100px; }
+.shield-stage { position: relative; width: min(440px, 92%); aspect-ratio: 400 / 470; transform-style: preserve-3d; transition: transform 0.18s var(--ease-out); }
 .shield-svg { width: 100%; height: 100%; overflow: visible; }
 .shield-rings { transform-origin: 200px 215px; animation: spin 70s linear infinite; }
 .shield-stage .shield-shadow { animation: shadow-pulse 6s ease-in-out infinite; transform-origin: center; }
@@ -289,18 +289,18 @@ ul { list-style: none; }
 @keyframes fade-in { to { opacity: 1; } }
 @keyframes pop-in { 0% { opacity: 0; transform: translateY(-9px) scale(0.92); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
-.cap { position: absolute; display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.95rem; background: rgba(13, 27, 48, 0.72); border: 1px solid var(--line); border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 500; color: var(--ink); backdrop-filter: blur(12px); box-shadow: var(--shadow-md); opacity: 0; animation: cap-float 7s ease-in-out infinite; }
-.loaded .cap-1 { animation: cap-float 7s ease-in-out infinite, pop-in 0.6s var(--ease-spring) forwards 1.5s; }
-.loaded .cap-2 { animation: cap-float 7s ease-in-out infinite 1.4s, pop-in 0.6s var(--ease-spring) forwards 1.7s; }
-.loaded .cap-3 { animation: cap-float 7s ease-in-out infinite 2.6s, pop-in 0.6s var(--ease-spring) forwards 1.9s; }
-.loaded .cap-4 { animation: cap-float 7s ease-in-out infinite 3.8s, pop-in 0.6s var(--ease-spring) forwards 2.1s; }
+.cap { position: absolute; display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.95rem; background: rgba(13, 27, 48, 0.78); border: 1px solid var(--line); border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 500; color: var(--ink); backdrop-filter: blur(12px); box-shadow: var(--shadow-md); opacity: 0; transform: translateZ(var(--z, 0)); }
+.loaded .cap-1 { animation: cap-pop 0.7s var(--ease-spring) forwards 1.5s; }
+.loaded .cap-2 { animation: cap-pop 0.7s var(--ease-spring) forwards 1.7s; }
+.loaded .cap-3 { animation: cap-pop 0.7s var(--ease-spring) forwards 1.9s; }
+.loaded .cap-4 { animation: cap-pop 0.7s var(--ease-spring) forwards 2.1s; }
 .cap-ico { width: 18px; height: 18px; display: inline-flex; color: var(--gold); }
 .cap-ico svg { width: 100%; height: 100%; }
-.cap-1 { top: 4%; left: -4%; }
-.cap-2 { top: 26%; right: -8%; }
-.cap-3 { bottom: 22%; left: -8%; }
-.cap-4 { bottom: 6%; right: 0; }
-@keyframes cap-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.cap-1 { --z: 75px; top: 4%; left: -4%; }
+.cap-2 { --z: 40px; top: 26%; right: -8%; }
+.cap-3 { --z: 58px; bottom: 22%; left: -8%; }
+.cap-4 { --z: 26px; bottom: 6%; right: 0; }
+@keyframes cap-pop { 0% { opacity: 0; transform: translateZ(var(--z)) translateY(-10px) scale(0.9); } 100% { opacity: 1; transform: translateZ(var(--z)) translateY(0) scale(1); } }
 
 .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; z-index: 2; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-deep); transition: color 0.3s; }
 .hero-scroll:hover { color: var(--gold); }
@@ -620,8 +620,16 @@ ul { list-style: none; }
 .statement-text .w.accent.on { background: var(--grad-gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
 
 /* ═══════════════════════════════════════════════════════════════
-   HERO CINEMÁTICO — rayos volumétricos + chispas en órbita
+   HERO CINEMÁTICO — constelación, spotlight, rayos, chispas
    ═══════════════════════════════════════════════════════════════ */
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.hero-spotlight {
+    position: absolute; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; border-radius: 50%; pointer-events: none; z-index: 1;
+    background: radial-gradient(circle, rgba(220, 180, 105, 0.18), rgba(220, 180, 105, 0.05) 38%, transparent 62%);
+    mix-blend-mode: screen; opacity: 0; transition: opacity 0.6s var(--ease-out); will-change: transform;
+}
+.hero:hover .hero-spotlight { opacity: 1; }
 .hero-rays {
     position: absolute; top: 50%; left: 50%; width: 130%; aspect-ratio: 1; z-index: 0;
     transform: translate(-50%, -50%); pointer-events: none;

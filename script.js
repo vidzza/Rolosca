@@ -323,46 +323,109 @@
             });
         }
 
-        /* ───────── Partículas ───────── */
-        const particles = document.getElementById('particles');
-        if (particles && !reduceMotion) {
-            const count = innerWidth < 768 ? 16 : 34;
-            const frag = document.createDocumentFragment();
-            for (let i = 0; i < count; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                const size = Math.random() * 3 + 1.5;
-                p.style.cssText = `width:${size}px;height:${size}px;background:rgba(201,169,98,${Math.random() * 0.5 + 0.15});left:${Math.random() * 100}%;top:${Math.random() * 100}%;box-shadow:0 0 ${size * 2}px rgba(201,169,98,0.4);animation:p-float ${Math.random() * 10 + 12}s ease-in-out ${Math.random() * 6}s infinite;`;
-                frag.appendChild(p);
+        /* ───────── Constelación interactiva (canvas) ───────── */
+        const heroEl = document.querySelector('.hero');
+        const canvas = document.getElementById('heroCanvas');
+        const mouse = { x: -9999, y: -9999 };
+        if (heroEl && canvas && !reduceMotion) {
+            const ctx = canvas.getContext('2d');
+            let w = 0, h = 0, dpr = 1, pts = [];
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                const r = heroEl.getBoundingClientRect();
+                w = r.width; h = r.height;
+                canvas.width = w * dpr; canvas.height = h * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                const count = Math.min(120, Math.round(w * h / 11000));
+                pts = [];
+                for (let i = 0; i < count; i++) pts.push({
+                    x: Math.random() * w, y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.32, vy: (Math.random() - 0.5) * 0.32,
+                    r: Math.random() * 1.8 + 1.2
+                });
             }
-            particles.appendChild(frag);
-            const style = document.createElement('style');
-            style.textContent = `@keyframes p-float{0%,100%{transform:translateY(0);opacity:0}10%,90%{opacity:1}50%{transform:translateY(-90px) translateX(${Math.random() * 40 - 20}px)}}`;
-            document.head.appendChild(style);
+            resize();
+            addEventListener('resize', resize, { passive: true });
+            const LINK = 142, MLINK = 200;
+            (function draw() {
+                ctx.clearRect(0, 0, w, h);
+                ctx.shadowColor = 'rgba(240,220,168,0.9)';
+                for (let i = 0; i < pts.length; i++) {
+                    const p = pts[i];
+                    if (mouse.x > -9999) {
+                        const dx = mouse.x - p.x, dy = mouse.y - p.y, d = Math.hypot(dx, dy);
+                        if (d < 220 && d > 0.1) { p.vx += dx / d * 0.02; p.vy += dy / d * 0.02; }
+                    }
+                    p.x += p.vx; p.y += p.vy; p.vx *= 0.992; p.vy *= 0.992;
+                    if (Math.abs(p.vx) < 0.05) p.vx += (Math.random() - 0.5) * 0.13;
+                    if (Math.abs(p.vy) < 0.05) p.vy += (Math.random() - 0.5) * 0.13;
+                    if (p.x < 0 || p.x > w) p.vx *= -1;
+                    if (p.y < 0 || p.y > h) p.vy *= -1;
+                    p.x = Math.max(0, Math.min(w, p.x)); p.y = Math.max(0, Math.min(h, p.y));
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+                    ctx.shadowBlur = 8; ctx.fillStyle = 'rgba(231,193,118,0.92)'; ctx.fill();
+                }
+                ctx.shadowBlur = 0;
+                for (let i = 0; i < pts.length; i++) {
+                    const a = pts[i];
+                    for (let j = i + 1; j < pts.length; j++) {
+                        const b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+                        if (d < LINK) {
+                            ctx.strokeStyle = 'rgba(201,169,98,' + (1 - d / LINK) * 0.4 + ')';
+                            ctx.lineWidth = 0.7;
+                            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                        }
+                    }
+                    if (mouse.x > -9999) {
+                        const dx = a.x - mouse.x, dy = a.y - mouse.y, d = Math.hypot(dx, dy);
+                        if (d < MLINK) {
+                            ctx.strokeStyle = 'rgba(240,220,168,' + (1 - d / MLINK) * 0.65 + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            })();
         }
 
-        /* ───────── Parallax + tilt del escudo ───────── */
+        /* ───────── Drift del texto del hero al hacer scroll ───────── */
         const heroContent = document.querySelector('.hero-content');
-        const shieldStage = document.getElementById('shieldStage');
-        if (!reduceMotion) {
+        if (heroContent && !reduceMotion) {
             addEventListener('scroll', () => {
                 const y = window.pageYOffset;
-                if (y < innerHeight) {
-                    if (heroContent) heroContent.style.transform = `translateY(${y * 0.12}px)`;
-                    if (shieldStage) shieldStage.style.transform = `translateY(${y * -0.05}px)`;
-                }
+                if (y < innerHeight) heroContent.style.transform = `translateY(${y * 0.12}px)`;
             }, { passive: true });
+        }
 
-            const heroVisual = document.querySelector('.hero-visual');
-            if (heroVisual && shieldStage && finePointer) {
-                heroVisual.addEventListener('mousemove', (e) => {
-                    const r = heroVisual.getBoundingClientRect();
-                    const px = (e.clientX - r.left) / r.width - 0.5;
-                    const py = (e.clientY - r.top) / r.height - 0.5;
-                    shieldStage.style.transform = `perspective(1000px) rotateY(${px * 14}deg) rotateX(${-py * 14}deg)`;
-                });
-                heroVisual.addEventListener('mouseleave', () => { shieldStage.style.transform = ''; });
-            }
+        /* ───────── Hero inmersivo 3D: escudo + cápsulas + spotlight + constelación ───────── */
+        const shieldStage = document.getElementById('shieldStage');
+        const spotlight = document.getElementById('heroSpotlight');
+        const heroMesh = document.querySelector('.hero-mesh');
+        const heroGrid = document.querySelector('.hero-grid');
+        if (heroEl && finePointer && !reduceMotion) {
+            let tx = 0, ty = 0, cx = 0, cy = 0, sx = 0, sy = 0, hasSpot = false;
+            heroEl.addEventListener('mousemove', (e) => {
+                const r = heroEl.getBoundingClientRect();
+                const lx = e.clientX - r.left, ly = e.clientY - r.top;
+                tx = lx / r.width - 0.5; ty = ly / r.height - 0.5;
+                mouse.x = lx; mouse.y = ly;
+                if (!hasSpot) { sx = lx; sy = ly; hasSpot = true; }
+            });
+            heroEl.addEventListener('mouseleave', () => { tx = 0; ty = 0; mouse.x = -9999; mouse.y = -9999; });
+            (function immersive() {
+                cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+                if (shieldStage && window.pageYOffset < innerHeight) {
+                    shieldStage.style.transform = `rotateY(${(cx * 24).toFixed(2)}deg) rotateX(${(-cy * 24).toFixed(2)}deg)`;
+                }
+                if (heroMesh) heroMesh.style.transform = `translate(${(cx * 16).toFixed(1)}px, ${(cy * 16).toFixed(1)}px)`;
+                if (heroGrid) heroGrid.style.transform = `translate(${(cx * -30).toFixed(1)}px, ${(cy * -30).toFixed(1)}px)`;
+                if (spotlight && hasSpot && mouse.x > -9999) {
+                    sx += (mouse.x - sx) * 0.16; sy += (mouse.y - sy) * 0.16;
+                    spotlight.style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px)`;
+                }
+                requestAnimationFrame(immersive);
+            })();
         }
 
         /* ───────── Tilt + spotlight tarjetas ───────── */
@@ -553,31 +616,6 @@
                     item.style.setProperty('--vy', (e.clientY - r.top) + 'px');
                 });
             });
-        }
-
-        /* ───────── Profundidad reactiva del hero (mouse) ─────────
-           Las auroras ya flotan con @keyframes (las animaciones CSS
-           ganan sobre el transform inline), así que la profundidad solo
-           se aplica a capas estáticas: malla, rejilla y partículas. */
-        const heroEl = document.querySelector('.hero');
-        const heroMesh = document.querySelector('.hero-mesh');
-        const heroGrid = document.querySelector('.hero-grid');
-        const heroParticles = document.getElementById('particles');
-        if (heroEl && finePointer && !reduceMotion) {
-            let tx = 0, ty = 0, cx = 0, cy = 0;
-            heroEl.addEventListener('mousemove', (e) => {
-                const r = heroEl.getBoundingClientRect();
-                tx = (e.clientX - r.left) / r.width - 0.5;
-                ty = (e.clientY - r.top) / r.height - 0.5;
-            });
-            heroEl.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
-            (function depth() {
-                cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
-                if (heroMesh) heroMesh.style.transform = `translate(${cx * 16}px, ${cy * 16}px)`;
-                if (heroGrid) heroGrid.style.transform = `translate(${cx * -28}px, ${cy * -28}px)`;
-                if (heroParticles) heroParticles.style.transform = `translate(${cx * 40}px, ${cy * 40}px)`;
-                requestAnimationFrame(depth);
-            })();
         }
 
         /* ───────── Contadores ───────── */
