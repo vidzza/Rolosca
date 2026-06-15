@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <!-- Definición de Colores de tu Marca -->
+  <defs>
+    <linearGradient id="goldGradient" x1="0" y1="0" x2="200" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E0C988" /> <!-- Gold Light -->
+      <stop offset="100%" stop-color="#C9A962" /> <!-- Gold Main -->
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo del Escudo (Navy Dark) -->
+  <!-- Forma modernizada: más estilizada, menos "medieval" -->
+  <path d="M100 235C160 215 195 160 195 100V40L100 10L5 40V100C5 160 40 215 100 235Z" 
+        fill="#0A1628" 
+        stroke="#C9A962" 
+        stroke-width="6"/>
+
+  <!-- Los 5 Pilares (Crecimiento y Protección) -->
+  <!-- Simplificados a barras redondeadas con geometría limpia -->
+  
+  <!-- Pilar Central (El más alto) -->
+  <rect x="90" y="60" width="20" height="110" rx="10" fill="url(#goldGradient)"/>
+  <circle cx="100" cy="50" r="12" fill="#C9A962"/>
+
+  <!-- Pilares Medios -->
+  <rect x="130" y="80" width="20" height="80" rx="10" fill="url(#goldGradient)"/>
+  <circle cx="140" cy="70" r="12" fill="#C9A962"/>
+  
+  <rect x="50" y="80" width="20" height="80" rx="10" fill="url(#goldGradient)"/>
+  <circle cx="60" cy="70" r="12" fill="#C9A962"/>
+
+  <!-- Pilares Exteriores -->
+  <rect x="165" y="110" width="16" height="40" rx="8" fill="url(#goldGradient)"/>
+  <circle cx="173" cy="100" r="10" fill="#C9A962"/>
+
+  <rect x="19" y="110" width="16" height="40" rx="8" fill="url(#goldGradient)"/>
+  <circle cx="27" cy="100" r="10" fill="#C9A962"/>
+
+</svg>
+
