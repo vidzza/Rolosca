@@ -289,7 +289,7 @@
 
         /* ───────── Filtro de soluciones ───────── */
         const chips = document.querySelectorAll('.filter-chip');
-        const cards = document.querySelectorAll('.solution-card');
+        const cards = document.querySelectorAll('.feature');
         chips.forEach(chip => chip.addEventListener('click', () => {
             chips.forEach(c => c.classList.remove('active'));
             chip.classList.add('active');
